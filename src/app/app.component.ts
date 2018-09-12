@@ -14,7 +14,11 @@ export class AppComponent {
   }
 
   genDeck(){
-    this.dm.generateDeck();
+    if(this.dm.deck === undefined || this.dm.deck.length == 0){
+      this.dm.generateDeck();
+    }else{
+      console.log("deck already created");
+    }
   }
   addCard(){
     let card = this.dm.getDeckTop();
