@@ -3,7 +3,6 @@
     enum SUIT{Heart = 0, Diamond = 1, Spade = 2, Club = 3};
 
 export class Card{
-    zindex = 1;
 
     constructor(private suit: number, private rank: number){
     }
