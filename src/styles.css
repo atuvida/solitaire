@@ -1,75 +1,122 @@
-.placeHolder{
-    background-image: url("./assets/img/placeholder.png");
-    background-size: 100% 100%;
-    border-radius: 5px;
-    border: 1px solid wheat;
-}
-
-.card{
-    background-size: 100% 100%;
-    width: 100px;
-    height: 150px;
-    border-radius: 5px;
-	position: absolute;
-    background-color: red;
-    right: 20px;
-}
-#gameArea{
-    display: grid;
-    grid-template: repeat(4, 1fr) /  repeat(9, 1fr);
-    grid-gap: 5px;
-    background-color: darkolivegreen;
-    height: 95vh;
-    width: 93vw;
-    margin: 0 auto;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-#foundation{
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    grid-row: span 4;
-    grid-column: span 1;
-    grid-gap: 5px;
-}
-
-#foundation > div{
-    background-color: white;
-    border-radius: 5px;
-}
-
-#maneuver{
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-row: span 1;
-    grid-column: 2 / span 7;
-    grid-gap: 5px;
-}
-
-#maneuver > div{
-    background-color: rgb(206, 162, 162);
-    border-radius: 5px;
-}
-
-#talon{
-    grid-column: 9 / span 1;
-    grid-row: 2 / span 1;
-    display: grid;
-}
-
-#talon_0{
-    background-color: whitesmoke;
-    border-radius: 5px;
-}
-
-#waste{
-    grid-row: 3 / span 1;
-    grid-column: 9 / span 1;
-    display: grid;
-}
-
-#waste_0{
-    background-color: rgb(206, 162, 162);
-    border-radius: 5px;
-}
+body{
+    background-color: darkolivegreen;    
+    }
+    #gameArea{
+        display: grid;
+        grid-template: repeat(4, 1fr) / 1fr 7fr 1fr;
+        grid-gap: 5px;
+        width: 93vw;
+        height: 93vh;
+        margin: 0 auto;
+        padding: 5px;
+        border-radius: 10px;
+    }
+    
+    #foundation{
+        padding: 2px;
+        border-radius: 10px;
+        grid-row: span 4;
+        display: grid;
+        grid-gap: 5px;
+        grid-row-gap: 7px;
+        grid-template-rows: repeat(4, 1fr);
+    }
+    
+    #maneuver{
+        padding: 2px;
+        border-radius: 10px;
+        grid-row: span 4;
+        display: grid;
+        grid-gap: 5px;
+        grid-row-gap: 7px;
+        grid-template: repeat(4, 1fr) / repeat(7, 1fr);
+    }
+    
+    #maneuver > div{
+        grid-row: span 1;
+    }
+    
+    #talon{
+        padding: 2px;
+        border-radius: 10px;
+        display: grid;
+        grid-row-start: 3;
+        grid-column: 3 / 4;
+    }
+    #talon > div{
+        grid-row: span 1;
+        }
+    
+    #waste{
+        grid-row-start: 2;
+        grid-column: 3 / 4;
+        padding: 2px;
+        border-radius: 10px;
+        display: grid;
+    }
+    
+    #waste > div{
+        grid-row: span 1;
+    }
+    
+    .placeHolder{
+        width: auto;
+        height:auto;
+        border-radius: 10px;
+        background-image: url("./assets/img/placeholder.png");
+        background-size: 100% 100%;
+        position: relative
+    }
+    
+    .cards{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: 10px;
+        background-size: 100% 100%;
+        border: 0.5px solid black;
+    }
+    
+    
+    @media screen and (max-width: 800px){
+        #gameArea{
+        grid-template: repeat(5, 1fr) / repeat(7, 1fr);
+        }
+        
+        #foundation{
+        grid-template: 1fr / repeat(4, 1fr);
+        grid-column: 1 / 5;
+        grid-row: span 1;
+        margin-right: -4px;
+        padding-right: 4px;
+        grid-gap: 7px;
+        }
+    
+        #maneuver{
+        grid-row: 2 / -1;
+        grid-column: span 7;
+        grid-row-gap: 12px;
+        }
+    
+        #maneuver > div{
+        grid-row: span 1;
+        margin: 0 1px;
+        }
+    
+        #talon{
+        grid-column: 7 / 8;
+        grid-row: 1 / 2;
+        margin-left: -2px;
+        }
+    
+        #waste{
+        grid-column: 6 / 7;
+        grid-row: span 1;
+        margin-left: -2px;
+        }
+    
+        #waste > div{
+        grid-row: span 1;
+        }
+    
+    }

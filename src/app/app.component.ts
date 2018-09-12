@@ -1,5 +1,4 @@
-import { DeckManagerService } from './deck-manager.service';
-import { Card } from './card';
+import { GameControlService } from './game-control.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,19 +9,16 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
   title = 'solitaire';
 
-  constructor(private dm: DeckManagerService){
+  constructor(private gameControl: GameControlService){
   }
 
-  genDeck(){
-    if(this.dm.deck === undefined || this.dm.deck.length == 0){
-      this.dm.generateDeck();
-    }else{
-      console.log("deck already created");
-    }
+  ngOnInit(){
+    this.gameControl.initializeGame();
   }
-  addCard(){
-    let card = this.dm.getDeckTop();
-    let talon = document.getElementById("talon_0");
-    talon.appendChild(card);
-  }
+
+  // addCard(){
+  //   let card = this.deckService.getDeckTop();
+  //   let talon = document.getElementById("talon_0");
+  //   talon.appendChild(card);
+  // }
 }

@@ -13,7 +13,7 @@ export class Card{
         let body = document.createElement('div');
         let suit = this.suit;
         let rank = this.rank;
-        body.className = "card";
+        body.className = "cards";
         body.id = suit+"_"+rank;
         body.style.backgroundImage = "url('./assets/img/cards/"+suit+"/"+body.id+".png')";
         return body;

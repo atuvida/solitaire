@@ -1,5 +1,6 @@
+import { Deck } from './deck';
 import { Card } from './card';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 const maxRank = 13;
 const maxSuit = 4;
@@ -7,25 +8,21 @@ const maxSuit = 4;
 @Injectable({
   providedIn: 'root'
 })
-
-export class DeckManagerService {
-  
+export class DeckService {
   constructor() { }
 
-  deck: Card[] = [];
+  mainDeck: Deck = new Deck('mainDeck');
+
+  deckIsPlayed: boolean = false;
 
   generateDeck(){
     for(let rank = 0; rank < maxRank; rank++){
       for(let suit = 0; suit < maxSuit; suit++){
         let card = new Card(suit,rank);
-        this.deck.push(card);
+        this.mainDeck.addCard(card);
         console.log(card);
       }
     }
-  }
-
-  getDeckTop(){
-    let card = this.deck.pop();
-    return card.body;
+    this.deckIsPlayed = true;
   }
 }
