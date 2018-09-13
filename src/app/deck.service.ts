@@ -15,7 +15,7 @@ export class DeckService {
 
   deckCreated: boolean = false;
 
-  generateDeck(){
+  generateDeck(): void{
     for(let rank = 0; rank < maxRank; rank++){
       for(let suit = 0; suit < maxSuit; suit++){
         let card = new Card(suit,rank);
@@ -23,7 +23,6 @@ export class DeckService {
         console.log(card);
       }
     }
-    this.deckCreated
- = true;
+    this.deckCreated = true;
   }
 }

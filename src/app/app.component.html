@@ -1,16 +1,6 @@
 <div id="gameArea">
-    <div id="foundation">
-        <div class="placeHolder"  *ngFor="let foundation of foundations; let i = index"
-        id="{{'foundation_'+i}}"></div>
-    </div>
-    <div id="maneuver">
-        <div class="placeHolder"  *ngFor="let maneuver of maneuvers; let i = index"
-        id="{{'maneuver_'+i}}"></div>
-     </div>
-     <div id="talon">
-        <div class="placeHolder" id="talon_0"></div> 
-     </div>
-     <div id="waste">
-        <div class="placeHolder" id="waste_0"></div>
-     </div>
+    <app-foundation id="foundation"></app-foundation>
+    <app-maneuver id="maneuver"></app-maneuver>
+     <app-talon id="talon"></app-talon>
+     <app-waste id="waste"></app-waste>
 </div>

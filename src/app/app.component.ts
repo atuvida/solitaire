@@ -1,6 +1,6 @@
 import { Deck } from './deck';
 import { GameControlService } from './game-control.service';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',

@@ -8,18 +8,18 @@ export class Deck{
     constructor(private id: string){
     }
     
-    addCard(card: Card){
+    addCard(card: Card): void{
         this.contents.push(card);
     }
 
-    addCardToDeck(thisCard: HTMLDivElement){
+    addCardToDeck(thisCard: HTMLDivElement): void{
         let deck = document.getElementById(this.id);
         deck.appendChild(thisCard);
         console.log(thisCard.id+"->"+this.id);
     }
     
 
-    getTopCard(){
+    getTopCard(): HTMLDivElement{
         return this.contents.pop().body;
     }
 
