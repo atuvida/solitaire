@@ -3,13 +3,13 @@ import { Card } from './card';
 
 export class Deck{
 
-    cards: Card[] = [];
+    contents: Card[] = [];
 
     constructor(private id: string){
     }
     
     addCard(card: Card){
-        this.cards.push(card);
+        this.contents.push(card);
     }
 
     addCardToDeck(thisCard: HTMLDivElement){
@@ -17,13 +17,14 @@ export class Deck{
         deck.appendChild(thisCard);
         console.log(thisCard.id+"->"+this.id);
     }
+    
 
     getTopCard(){
-        return this.cards.pop().body;
+        return this.contents.pop().body;
     }
 
     isEmpty(): boolean{
-        if(this.cards.length == 0){
+        if(this.contents.length == 0){
           return true;
         }
         return false;

@@ -13,7 +13,7 @@ export class DeckService {
 
   mainDeck: Deck = new Deck('mainDeck');
 
-  deckIsPlayed: boolean = false;
+  deckCreated: boolean = false;
 
   generateDeck(){
     for(let rank = 0; rank < maxRank; rank++){
@@ -23,6 +23,7 @@ export class DeckService {
         console.log(card);
       }
     }
-    this.deckIsPlayed = true;
+    this.deckCreated
+ = true;
   }
 }
