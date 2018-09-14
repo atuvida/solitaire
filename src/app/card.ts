@@ -9,22 +9,27 @@ export class Card{
     
     private color = (this.suit == SUIT.Diamond || this.suit == SUIT.Heart) ? COLOR.Red : COLOR.Black;
     
+    private cardHolder = document.createElement('div');
+    private id = this.suit+"_"+this.rank;
+
     get body(){
-        let body = document.createElement('div');
         let suit = this.suit;
         let rank = this.rank;
-        body.className = "cards";
-        body.id = suit+"_"+rank;
-        body.style.backgroundImage = "url('./assets/img/cards/"+suit+"/"+body.id+".png')";
-        return body;
+        this.cardHolder.className = "faceDown";
+        this.cardHolder.id = this.ID;
+        this.cardHolder.style.backgroundImage = "url('./assets/img/cards/back.png')";
+        return this.cardHolder;
     }
-    getSuit(){
+    get Suit(){
         return this.suit;
     }
-    getRank(){
+    get Rank(){
         return this.rank;
     }
-    getColor(){
+    get Color(){
         return this.color;
+    }
+    get ID(){
+        return this.id;
     }
 }
