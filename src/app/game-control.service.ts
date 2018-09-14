@@ -50,7 +50,7 @@ export class GameControlService {
       let maneuver = this.maneuvers[j];
       topCard.style.top = i*15+"%";
       topCard.style.left = i+"%";
-			maneuver.addCardToDeck( topCard);
+			maneuver.addCardToDeck(topCard);
 		}
 		// let maneuverTop = lastCard(maneuvers[i]);
 		// autoFlip(maneuverTop);
