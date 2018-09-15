@@ -6,20 +6,11 @@ export class Card{
 
     constructor(private suit: number, private rank: number){
     }
-    
     private color = (this.suit == SUIT.Diamond || this.suit == SUIT.Heart) ? COLOR.Red : COLOR.Black;
-    
-    private cardHolder = document.createElement('div');
-    private id = this.suit+"_"+this.rank;
+    private _id = this.suit+"_"+this.rank;
 
-    get body(){
-        let suit = this.suit;
-        let rank = this.rank;
-        this.cardHolder.className = "faceDown";
-        this.cardHolder.id = this.ID;
-        this.cardHolder.style.backgroundImage = "url('./assets/img/cards/back.png')";
-        return this.cardHolder;
-    }
+    private _flipped: boolean = false;
+
     get Suit(){
         return this.suit;
     }
@@ -29,7 +20,15 @@ export class Card{
     get Color(){
         return this.color;
     }
-    get ID(){
-        return this.id;
+    get id(){
+        return this._id;
+    }
+
+    get flipped(): boolean{
+        return this._flipped;
+    }
+
+    flip(): void{
+        this._flipped = true;
     }
 }

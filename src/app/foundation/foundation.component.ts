@@ -1,5 +1,4 @@
-import { Deck } from './../deck';
-import { GameControlService } from './../game-control.service';
+import { DeckService } from './../deck.service';
 import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
@@ -9,9 +8,9 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 })
 export class FoundationComponent implements OnInit {
 
-  foundations: Deck[] = this.gameControl.foundations;
+  foundations = this.deckService.foundations;
 
-  constructor(private gameControl: GameControlService){
+  constructor(private deckService: DeckService){
   }
 
   ngOnInit() {

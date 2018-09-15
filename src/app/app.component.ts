@@ -1,3 +1,4 @@
+import { DeckService } from './deck.service';
 import { Deck } from './deck';
 import { GameControlService } from './game-control.service';
 import { Component } from '@angular/core';
@@ -8,19 +9,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'solitaire';
-  foundations: Deck[] = this.gameControl.foundations;
-  maneuvers: Deck[] = this.gameControl.maneuvers;
+  
+  foundations: Deck[] = this.deckService.foundations;
+  maneuvers: Deck[] = this.deckService.maneuvers;
+  talon: Deck = this.deckService.talon;
 
-  constructor(private gameControl: GameControlService){
+  constructor(private gameControl: GameControlService, private deckService: DeckService){
   }
 
   ngOnInit(){
-    this.gameControl.createDecks();
+    // this.gameControl.createDecks();
+    this.gameControl.initializeGame();
   }
 
   ngAfterViewInit(){
-    this.gameControl.initializeGame();
+    // this.gameControl.initializeGame();
   }
 
 }

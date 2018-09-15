@@ -1,5 +1,4 @@
-import { Deck } from './../deck';
-import { GameControlService } from './../game-control.service';
+import { DeckService } from './../deck.service';  
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,9 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManeuverComponent implements OnInit {
 
-  maneuvers: Deck[] = this.gameControl.maneuvers;
+  maneuvers = this.deckService.maneuvers;
 
-  constructor(private gameControl: GameControlService){
+  constructor(private deckService: DeckService){
   }
 
   ngOnInit() {
