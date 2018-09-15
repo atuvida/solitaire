@@ -1,7 +1,6 @@
 import { TalonComponent } from './talon/talon.component';
 import { style } from '@angular/animations';
 import { Card } from './card';
-import { url } from 'inspector';
 
 export class Deck{
 

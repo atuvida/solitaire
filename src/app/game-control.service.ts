@@ -50,31 +50,10 @@ export class GameControlService {
       this.maneuvers[i].flipTop();
     }
 
-<<<<<<< HEAD
-	// let columnCount = 7;
-	// let rowCount = 7;
-
-	for (let i = 0; i < this.maneuvers.length; i++) {
-		for (let j = i; j < this.maneuvers.length; j++) {
-			let topCard = this.mainDeck.getTopCard();
-      let maneuver = this.maneuvers[j];
-      topCard.style.top = i*15+"%";
-      topCard.style.left = i+"%";
-			maneuver.addCardToDeck(topCard);
-		}
-		// let maneuverTop = lastCard(maneuvers[i]);
-		// autoFlip(maneuverTop);
-	}
-
-	while(!this.mainDeck.isEmpty()){
-		let topCard = this.mainDeck.getTopCard();
-		this.talon.addCardToDeck(topCard);
-=======
     while(!this.mainDeck.isEmpty()){
       let topCard = this.mainDeck.getTopCard();
       this.talon.addCardToDeck(topCard);
     }
->>>>>>> d59709cdba357f7617b43457559b51af690b3f33
   }
 
   shuffleCards(): void{

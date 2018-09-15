@@ -1,6 +1,6 @@
 
     enum COLOR{Red = 0, Black = 1};
-    enum SUIT{Heart = 0, Diamond = 1, Spade = 2, Club = 3};
+    enum SUIT{Spade = 0, Club = 1, Diamond = 2, Heart = 3};
 
 export class Card{
 
