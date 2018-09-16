@@ -1,7 +1,14 @@
 <div class="placeHolder"  id="talon_0">
-    <div class="cards" 
-    *ngFor="let card of Deck.cards"
-    id="{{card.id}}"
-    style="background-image:url('./assets/img/cards/back.png')">
-    </div>
+    <ng-template ngFor let-card [ngForOf]="Deck.cards" let-i="index" >
+        <div class="cards" id="{{card.id}}"
+                *ngIf="!card.flipped; else elseBlock"
+                [ngStyle]="{'background-image': 'url(./assets/img/cards/back.png)'}">
+        </div>
+        <ng-template #elseBlock>
+            <div class="cards" id="{{card.id}}"
+            [ngStyle]="{'background-image':'url(./assets/img/cards/'+card.Suit+'/'+card.id+'.png)'}"
+            movable
+            ></div>
+        </ng-template>
+    </ng-template>
 </div>

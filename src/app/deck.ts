@@ -28,8 +28,12 @@ export class Deck{
         return this._id;
     }
 
-    flipTop(): void{
+    get top(): Card{
         let top = this.cards.slice(this.size-1, this.size);
-        top[0].flip();
+        return top[0];
+    }
+
+    flipTop(): void{
+        this.top.flip();
     }
 }

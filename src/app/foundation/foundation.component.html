@@ -1,16 +1,6 @@
-
-<!-- <div class="placeHolder" id="foundation_0">
-    <div class="cards" 
-    *ngFor="let card of this.foundations[0].cards; let i = index"
-    id="{{card.id}}"
-    style="background-image:url('./assets/img/cards/back.png')">
-    </div>
-</div> -->
-
-<div class="placeHolder" *ngFor="let foundation of foundations; let i = index" id="{{foundation.id}}">
-    <div class="cards" 
-    *ngFor="let card of foundation.cards;"
-    id="{{card.id}}"
-    style="background-image:url('./assets/img/cards/back.png')">
-    </div>
+<div class="placeHolder" *ngFor="let foundation of foundations; let i = index" 
+    id="{{foundation.id}}" [thisDeck]="this.foundation"
+    dropzone [thisDeck]="this.foundation" (drop)="move(this.foundation)">
+  <div class="cards" *ngFor="let card of foundation.cards;" id="{{card.id}}" [ngStyle]="{'background-image':'url(./assets/img/cards/'+card.Suit+'/'+card.id+'.png)'}">
+  </div>
 </div>

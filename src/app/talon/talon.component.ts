@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-talon',
   templateUrl: './talon.component.html',
-  styleUrls: ['./talon.component.css']
+  styleUrls: ['./talon.component.scss']
 })
 export class TalonComponent implements OnInit {
 

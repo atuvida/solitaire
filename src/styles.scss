@@ -1,0 +1,154 @@
+body{
+background: url(./assets/img/background.png) no-repeat center center fixed; 
+background-size: cover;
+font-size: 150%;
+}
+
+.cards{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 13px;
+    background-size: 100% 100%;
+    border: 1.5px solid white;
+
+    &.dragging{
+        border: 1.5px solid red;  
+        pointer-events: none !important;  
+        z-index: 1000;
+    }
+}
+    
+.draggable{
+user-select: none;
+}
+
+.movable:not(.dragging){
+    transition: transform 350ms ease-in-out;
+}
+
+#gameArea{
+display: grid;
+grid-template: repeat(4, 1fr) / 1fr 7fr 1fr;
+grid-row-gap: 5px;
+grid-column-gap: 19px;
+width: 85vw;
+height: 93vh;
+min-height: 20vh;
+min-width: 15vw;
+margin: 0 auto;
+padding: 5px;
+border-radius: 10px;
+overflow: hidden;
+}
+
+#foundation{
+padding: 2px;
+border-radius: 10px;
+grid-row: span 4;
+display: grid;
+grid-gap: 5px;
+grid-row-gap: 7px;
+grid-template-rows: repeat(4, 1fr);
+}
+
+#maneuver{
+padding: 2px;
+border-radius: 10px;
+grid-row: span 4;
+display: grid;
+grid-gap: 5px;
+grid-row-gap: 7px;
+grid-template: repeat(4, 1fr) / repeat(7, 1fr);
+}
+
+#maneuver > div{
+grid-row: span 1;
+
+// &.activated-dropzone{
+//     border: 1px dashed yellowgreen;      
+//   }
+  
+}
+
+#talon{
+padding: 2px;
+border-radius: 10px;
+display: grid;
+grid-row-start: 3;
+grid-column: 3 / 4;
+}
+#talon > div{
+grid-row: span 1;
+}
+
+#waste{
+grid-row-start: 2;
+grid-column: 3 / 4;
+padding: 2px;
+border-radius: 10px;
+display: grid;
+}
+
+#waste > div{
+grid-row: span 1;
+}
+
+.placeHolder{
+width: auto;
+height:auto;
+border-radius: 13px;
+background-image: url("./assets/img/placeholder.png");
+background-size: 100% 100%;
+position: relative;
+border: 1.5px solid white;
+
+  &.entered-dropzone{
+    border: 1.5px solid red;      
+  }
+}
+
+@media screen and (max-width: 800px){
+#gameArea{
+grid-template: repeat(5, 1fr) / repeat(7, 1fr);
+width: 90vw;
+grid-gap: 5px;
+}
+
+#foundation{
+grid-template: 1fr / repeat(4, 1fr);
+grid-column: 1 / 5;
+grid-row: span 1;
+margin-right: -4px;
+padding-right: 4px;
+grid-gap: 7px;
+}
+
+#maneuver{
+grid-row: 2 / -1;
+grid-column: span 7;
+grid-row-gap: 12px;
+}
+
+#maneuver > div{
+grid-row: span 1;
+margin: 0 1px;
+}
+
+#talon{
+grid-column: 7 / 8;
+grid-row: 1 / 2;
+margin-left: -2px;
+}
+
+#waste{
+grid-column: 6 / 7;
+grid-row: span 1;
+margin-left: -2px;
+}
+
+#waste > div{
+grid-row: span 1;
+}
+
+}

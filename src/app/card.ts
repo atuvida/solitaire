@@ -1,6 +1,5 @@
-
-    enum COLOR{Red = 0, Black = 1};
-    enum SUIT{Spade = 0, Club = 1, Diamond = 2, Heart = 3};
+enum COLOR{Red = 0, Black = 1};
+enum SUIT{Spade = 0, Club = 1, Diamond = 2, Heart = 3};
 
 export class Card{
 
@@ -30,5 +29,6 @@ export class Card{
 
     flip(): void{
         this._flipped = true;
+        console.log('flipped '+this.id);
     }
 }
