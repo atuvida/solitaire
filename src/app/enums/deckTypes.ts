@@ -1,0 +1,1 @@
+export enum DeckTypes{Foundation = 0, Maneuver = 1, Talon = 2, Waste = 3, Main = 4};

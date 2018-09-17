@@ -13,7 +13,9 @@ export class FoundationComponent implements OnInit {
 
   foundations = this.deckService.foundations;
   maneuvers = this.deckService.maneuvers;
+
   currentCard?: Card;
+  sourceDeck?: Deck;
 
   constructor(private deckService: DeckService, private gameControl: GameControlService) {
   }
@@ -21,30 +23,18 @@ export class FoundationComponent implements OnInit {
   ngOnInit() {
   }
 
-  onDragStart(event: PointerEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.gameControl.onDragStart(event);
-  }
-
-  onDragMove(event: PointerEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.gameControl.onDragMove(event);
-  }
-
-  onDragEnd(event: PointerEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    this.gameControl.onDragEnd(event);
-  }
-
-  move(deck: Deck) {
-    for (let i = 0; i < this.maneuvers.length; i++) {
-      this.remove(this.currentCard, this.maneuvers[i]);
+  addCurrentCard(deck: Deck) {
+    let card = this.currentCard;
+    console.log('attempting to add card'+card.id);
+    if(card == deck.top){
+      return;
     }
-    this.gameControl.move(this.currentCard, deck);
+    for (let i = 0; i < this.foundations.length; i++) {
+      this.remove(card, this.foundations[i]);
+    }
+    this.gameControl.move(card, deck);
   }
+
   remove(card: Card, deck: Deck) {
     this.gameControl.remove(card, deck);
   }

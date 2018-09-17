@@ -1,12 +1,16 @@
+import { DomSanitizer } from '@angular/platform-browser';
 import { DroppableService } from './droppable.service';
-import { Directive, HostListener } from '@angular/core';
+import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[droppable]'
+  selector: '[droppable], [movable]'
 })
-export class DroppableDirective {
+export class DroppableDirective{
 
-  constructor(private droppableService: DroppableService) { }
+  sanitizer: DomSanitizer;
+
+  constructor(private droppableService: DroppableService) {
+   }
 
   @HostListener('dragStart', ['$event'])
   onDragStart(event: PointerEvent): void {

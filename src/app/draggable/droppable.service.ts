@@ -1,3 +1,5 @@
+import { Deck } from './../deck';
+import { Card } from './../card';
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
@@ -15,13 +17,18 @@ export class DroppableService {
   constructor() {
     this.dragStart$ = this.dragStartSubject.asObservable();
     this.dragEnd$ = this.dragEndSubject.asObservable();
+    console.log('created a dropzone');
   }
 
   onDragStart(event: PointerEvent): void{
+    event.preventDefault();
+    event.stopPropagation();
     this.dragStartSubject.next(event);
   }
 
   onDragEnd(event: PointerEvent): void{
+    event.preventDefault();
+    event.stopPropagation();
     this.dragEndSubject.next(event);
   }
 }

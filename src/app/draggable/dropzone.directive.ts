@@ -1,14 +1,14 @@
-import { Card } from './../card';
 import { DroppableService } from './droppable.service';
-import { QueryList, Directive, OnInit, HostBinding, HostListener, ContentChildren, AfterContentInit, ElementRef, Input, SkipSelf, Output, EventEmitter } from '@angular/core';
+import { Directive, OnInit, HostBinding, HostListener, Input, SkipSelf, Output, EventEmitter } from '@angular/core';
 import { Deck } from '../deck';
 
 @Directive({
   selector: '[dropzone]'
 })
-export class DropzoneDirective implements OnInit {
+export class DropzoneDirective implements OnInit{
 
   @Input('thisDeck') thisDeck: Deck;
+  
   @Output() drop = new EventEmitter<PointerEvent>();
 
   @HostBinding('class.activated-dropzone') activated = false;
@@ -31,19 +31,8 @@ export class DropzoneDirective implements OnInit {
   constructor(private droppableService: DroppableService) { }
 
   ngOnInit(): void {
-    this.droppableService.dragStart$.subscribe(
-      () => {
-        this.onDragStart();
-      }
-    );
-
-    this.droppableService.dragEnd$.subscribe(
-      event => {
-        this.onDragEnd(event);
-      }
-    );
-
-    console.log(this.thisDeck.top);
+    this.droppableService.dragStart$.subscribe(() => this.onDragStart());
+    this.droppableService.dragEnd$.subscribe(event => this.onDragEnd(event));
   }
 
   private onDragStart(): void {
@@ -53,13 +42,12 @@ export class DropzoneDirective implements OnInit {
   private onDragEnd(event: PointerEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    SkipSelf();
     if(this.entered){
-      console.log('dropped at dropzone from'+this.thisDeck.id);
       this.drop.emit(event);
     }
 
     this.activated = false;
+    this.entered = false;
   }
 
 }

@@ -1,10 +1,11 @@
+import { DeckTypes } from './enums/deckTypes';
 import { Card } from './card';
 
 export class Deck{
 
     cards: Card[] = [];
 
-    constructor(private _id: string){
+    constructor(private _id: string, private _type: DeckTypes){
     }
     
     addCard(card: Card): void{
@@ -25,7 +26,7 @@ export class Deck{
     }
 
     get id(): string{
-        return this._id;
+        return this.id;
     }
 
     get top(): Card{
@@ -35,5 +36,9 @@ export class Deck{
 
     flipTop(): void{
         this.top.flip();
+    }
+
+    get type(): string{
+        return DeckTypes[this._type];
     }
 }

@@ -1,5 +1,8 @@
-enum COLOR{Red = 0, Black = 1};
-enum SUIT{Spade = 0, Club = 1, Diamond = 2, Heart = 3};
+import { RANK } from './enums/ranks';
+import { SUIT } from './enums/suits';
+import { COLOR } from './enums/colors';
+
+COLOR
 
 export class Card{
 

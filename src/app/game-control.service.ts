@@ -18,18 +18,6 @@ export class GameControlService {
       this.deckService.distributeCards();
   }
 
-  Dec
-  onDragStart(event: PointerEvent): void{
-    // console.log('drag started');
-  }
-
-  onDragMove(event: PointerEvent): void{
-    // console.log(`drag move ${Math.round(event.clientX)} ${Math.round(event.clientY)}`);
-  }
-
-  onDragEnd(event: PointerEvent): void{
-    // console.log('drag end');
-  }
 
   move(card: Card, deck: Deck){
     deck.addCard(card);

@@ -1,0 +1,1 @@
+export enum RANK{Ace = 0, Jack = 10, Queen = 11, King = 12};

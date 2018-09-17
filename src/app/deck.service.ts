@@ -1,6 +1,7 @@
 import { Deck } from './deck';
 import { Card } from './card';
 import { Injectable } from '@angular/core';
+import { DeckTypes } from './enums/deckTypes';
 
 const maxRank = 13, maxSuit = 4;
 const maneuverCount = 7, foundationCount = 4;
@@ -12,8 +13,8 @@ export class DeckService {
   constructor() { }
 
   mainDeck: Deck; 
-  talon: Deck = new Deck('talon_0');
-  waste: Deck = new Deck('waste_0');
+  talon: Deck = new Deck('talon_0',DeckTypes.Talon);
+  waste: Deck = new Deck('waste_0',DeckTypes.Waste);
   maneuvers: Deck[] = [];
   foundations: Deck[] = [];
 
@@ -21,7 +22,7 @@ export class DeckService {
 
   generateMainDeck(): void{
 
-    this.mainDeck = new Deck('mainDeck');
+    this.mainDeck = new Deck('Main',DeckTypes.Main);
 
     for(let rank = 0; rank < maxRank; rank++){
       for(let suit = 0; suit < maxSuit; suit++){
@@ -34,12 +35,12 @@ export class DeckService {
 
   createGameDecks(){
     for (let i = 0; i < maneuverCount; i++) {
-      let maneuver = new Deck('maneuver_'+i);
+      let maneuver = new Deck('maneuver_'+i, DeckTypes.Maneuver);
       this.maneuvers.push(maneuver);
     }
 
     for (let i = 0; i < foundationCount; i++) {
-      let foundation = new Deck('foundation_'+i);
+      let foundation = new Deck('foundation_'+i, DeckTypes.Foundation);
       this.foundations.push(foundation);
     }
     console.log('decks created');
