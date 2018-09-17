@@ -14,6 +14,7 @@ export class ManeuverComponent implements OnInit {
   maneuvers = this.deckService.maneuvers;
   currentCard?: Card ;
   sourceDeck?: Deck;
+  movableSet: Card[] = [];
 
   constructor(private deckService: DeckService, private gameControl: GameControlService) {
   }
@@ -50,9 +51,28 @@ export class ManeuverComponent implements OnInit {
         console.log('flipped '+this.sourceDeck.top);
         this.sourceDeck.flipTop();
       }
+    }    
+
+    if(this.movableSet.length > 0){
+      deck.addSet(this.movableSet);
+    }
+  }
+    
+  checkSet(): void{
+    let deck = this.sourceDeck;
+    
+    if(deck.cards.indexOf(this.currentCard) == deck.size){
+      return;
+    }
+    this.movableSet = deck.removeSetFrom(deck.cards.indexOf(this.currentCard));
+    console.log('set generated with lentgth '+ this.movableSet.length);
+  }
+
+  returnSet(): void{
+    if(this.sourceDeck.cards.indexOf(this.currentCard) !== -1){
+      this.sourceDeck.addSet(this.movableSet);
     }
 
-    
   }
 
   remove(card: Card, deck: Deck) {
