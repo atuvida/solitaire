@@ -30,12 +30,9 @@ export class FoundationComponent implements OnInit {
       return;
     }
     for (let i = 0; i < this.foundations.length; i++) {
-      this.remove(card, this.foundations[i]);
+      this.sourceDeck.topCard;
     }
-    this.gameControl.move(card, deck);
+    deck.addCard(card);
   }
 
-  remove(card: Card, deck: Deck) {
-    this.gameControl.remove(card, deck);
-  }
 }

@@ -30,11 +30,9 @@ export class ManeuverComponent implements OnInit {
       return;
     }
 
-    if(deck.isEmpty && card.Rank == RANK.King){
-      for (let i = 0; i < this.maneuvers.length; i++) {
-        this.remove(card, this.maneuvers[i]);
-      }
-      this.gameControl.move(card, deck);
+    if(deck.isEmpty() && card.Rank == RANK.King){
+      this.sourceDeck.topCard;
+      deck.addCard(card);
       if(!deck.isEmpty()){
         deck.flipTop();
       }
@@ -42,40 +40,33 @@ export class ManeuverComponent implements OnInit {
 
     let topCard = deck.top;
     if(card.Color !== topCard.Color && card.Rank == topCard.Rank-1){
-      for (let i = 0; i < this.maneuvers.length; i++) {
-        this.remove(card, this.maneuvers[i]);
-      }
-      this.gameControl.move(card, deck);
+      this.sourceDeck.topCard;
+      deck.addCard(card);
 
-      if(!this.sourceDeck.isEmpty()){
-        console.log('flipped '+this.sourceDeck.top);
-        this.sourceDeck.flipTop();
+      if(this.movableSet.length > 0){
+        deck.addSet(this.movableSet);
       }
     }    
 
-    if(this.movableSet.length > 0){
-      deck.addSet(this.movableSet);
+    if(!this.sourceDeck.isEmpty()){
+      this.sourceDeck.flipTop();
     }
+
   }
     
-  checkSet(): void{
+  moveCardSet(): void{
     let deck = this.sourceDeck;
     
-    if(deck.cards.indexOf(this.currentCard) == deck.size){
+    if(deck.top == this.currentCard){
       return;
     }
     this.movableSet = deck.removeSetFrom(deck.cards.indexOf(this.currentCard));
-    console.log('set generated with lentgth '+ this.movableSet.length);
+    console.log('set first card '+ this.movableSet[0].id);
   }
 
   returnSet(): void{
     if(this.sourceDeck.cards.indexOf(this.currentCard) !== -1){
       this.sourceDeck.addSet(this.movableSet);
     }
-
-  }
-
-  remove(card: Card, deck: Deck) {
-    this.gameControl.remove(card, deck);
   }
 }

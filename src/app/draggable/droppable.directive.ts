@@ -12,11 +12,18 @@ export class DroppableDirective{
   constructor(private droppableService: DroppableService) {
    }
 
-  @HostListener('dragStart', ['$event'])
-  onDragStart(event: PointerEvent): void {
+   @HostListener('dragStart', ['$event'])
+   onDragStart(event: PointerEvent): void {
+     event.preventDefault();
+     event.stopPropagation();
+     this.droppableService.onDragStart(event);
+   }
+   
+  @HostListener('dragMove', ['$event'])
+  onDragMove(event: PointerEvent): void {
     event.preventDefault();
     event.stopPropagation();
-    this.droppableService.onDragStart(event);
+    this.droppableService.onDragMove(event);
   }
 
   @HostListener('dragEnd', ['$event'])

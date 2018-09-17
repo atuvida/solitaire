@@ -69,5 +69,5 @@ export class DeckService {
       let topCard = this.mainDeck.topCard;
       this.talon.addCard(topCard);
     }
-  }    
+  }  
 }

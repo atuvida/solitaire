@@ -51,4 +51,8 @@ export class Deck {
             this.cards.push(cardset.splice(0,1)[0]);
         }
     }
+  
+  contains(card: Card): boolean{
+    return this.cards.indexOf(card) !== -1;
+  }
 }
