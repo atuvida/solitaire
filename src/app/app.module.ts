@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DraggableModule } from './draggable/draggable.module';
 import { GameControlService } from './game-control.service';
 import { DeckService } from './deck.service';
@@ -9,6 +10,7 @@ import { FoundationComponent } from './foundation/foundation.component';
 import { ManeuverComponent } from './maneuver/maneuver.component';
 import { TalonComponent } from './talon/talon.component';
 import { WasteComponent } from './waste/waste.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +20,9 @@ import { WasteComponent } from './waste/waste.component';
     WasteComponent
   ],
   imports: [
-    BrowserModule, DraggableModule
+    BrowserModule, 
+    DraggableModule,
+    BrowserAnimationsModule
   ],
   providers: [DeckService, GameControlService],
   bootstrap: [AppComponent]

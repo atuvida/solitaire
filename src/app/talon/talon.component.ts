@@ -1,12 +1,13 @@
 import { DeckService } from './../deck.service';
 import { Deck } from './../deck';
 import { Component, OnInit } from '@angular/core';
+
 enum MODE{Hard = 3, Easy = 1}
 
 @Component({
   selector: 'app-talon',
   templateUrl: './talon.component.html',
-  styleUrls: ['./talon.component.scss']
+  styleUrls: ['./talon.component.scss'],
 })
 export class TalonComponent implements OnInit {
 

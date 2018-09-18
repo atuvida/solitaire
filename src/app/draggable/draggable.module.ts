@@ -6,7 +6,6 @@ import { AppDraggableDirective } from './app-draggable.directive';
 import { MovableDirective } from './movable.directive';
 import { DropzoneDirective } from './dropzone.directive';
 import { DroppableDirective } from './droppable.directive';
-import { MovableSetDirective } from './movable-set.directive';
 
 @NgModule({
   exports: [
@@ -15,7 +14,6 @@ import { MovableSetDirective } from './movable-set.directive';
     MovableDirective,
     DropzoneDirective,
     DroppableDirective,
-    MovableSetDirective
   ],
   imports: [
     CommonModule
@@ -26,7 +24,6 @@ import { MovableSetDirective } from './movable-set.directive';
     MovableDirective,
     DropzoneDirective,
     DroppableDirective,
-    MovableSetDirective
   ],
   providers: [
     DroppableService

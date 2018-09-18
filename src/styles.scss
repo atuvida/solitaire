@@ -11,6 +11,7 @@ font-size: 150%;
   border-radius: 10px;
   background-size: 100% 100%;
   border: 1.5px solid white;
+  transform-style: preserve-3d;
 
   &.dragging{
       border: 1.5px solid red;  
@@ -36,9 +37,8 @@ user-select: none;
 
 #gameArea{
 display: grid;
-grid-template: repeat(4, 1fr) / 1fr 7fr 1fr;
-grid-row-gap: 5px;
-grid-column-gap: 19px;
+grid-template: repeat(5, 1fr) / repeat(9, 1fr);
+grid-gap: 7px;
 width: 85vw;
 height: 93vh;
 min-height: 20vh;
@@ -46,7 +46,7 @@ min-width: 15vw;
 margin: 0 auto;
 padding: 5px;
 border-radius: 10px;
-overflow: visible;
+overflow: hidden;
 }
 
 #foundation{
@@ -54,18 +54,17 @@ padding: 2px;
 border-radius: 10px;
 grid-row: span 4;
 display: grid;
-grid-gap: 5px;
-grid-row-gap: 7px;
+grid-gap: 7px;
 grid-template-rows: repeat(4, 1fr);
 }
 
 #maneuver{
 padding: 2px;
 border-radius: 10px;
-grid-row: span 4;
+grid-row: 1 / span 4;
+grid-column: 2 / span 7;
 display: grid;
-grid-gap: 5px;
-grid-row-gap: 7px;
+grid-gap: 7px;
 grid-template: repeat(4, 1fr) / repeat(7, 1fr);
 }
 
@@ -77,8 +76,8 @@ grid-row: span 1;
 padding: 2px;
 border-radius: 10px;
 display: grid;
-grid-row-start: 3;
-grid-column: 3 / 4;
+grid-row-start: 5/ span 1;
+grid-column: 2/span 1;
 }
 
 .loadedDeck{
@@ -124,8 +123,8 @@ grid-row: span 1;
 }
 
 #waste{
-grid-row-start: 2;
-grid-column: 3 / 4;
+grid-row: 5 / span 1;
+grid-column: 3 /  span 1;
 padding: 2px;
 border-radius: 10px;
 display: grid;

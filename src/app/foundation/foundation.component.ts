@@ -47,8 +47,6 @@ export class FoundationComponent implements OnInit {
       && this.sourceDeck.type !== DeckTypes.Waste){
         this.sourceDeck.flipTop();
       }
-
-
     }
   }
 
@@ -56,21 +54,15 @@ export class FoundationComponent implements OnInit {
     this.draggedSet = this.droppableService.droppableCardSet;
 
     if(this.draggedSet.length > 0){
-      console.log('dragging a set'+this.draggedSet.length);
       return false;
     }
-
-    if(this.deck.isEmpty() && draggedCard.Rank == RANK.Ace){
-      console.log('accepts ace');
-      return true;
-    }
-
-    if(!this.deck.isEmpty() && draggedCard.Suit == this.deck.top.Suit && draggedCard.Rank == this.deck.top.Rank+1){
-      console.log('valid addition');
-      return true;
-    }
-    
-    return false;
+    return this.deck.isCardPlayable(draggedCard);
   }
 
+  autoPlayCard(card: Card, deck: Deck){
+    if(deck.isEmpty()){
+      return;
+    }
+    this.deckService.autoPlayCard(card, deck);
+  }
 }

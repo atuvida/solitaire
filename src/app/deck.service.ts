@@ -43,7 +43,6 @@ export class DeckService {
       let foundation = new Deck('foundation_'+i, DeckTypes.Foundation);
       this.foundations.push(foundation);
     }
-    console.log('decks created');
   }
 
   shuffleDeckCards(): void{
@@ -69,5 +68,34 @@ export class DeckService {
       let topCard = this.mainDeck.getTopCard();
       this.talon.addCard(topCard);
     }
-  }  
+  } 
+  
+  autoPlayCard(card: Card, sourceDeck: Deck): void{
+    let DeckAreas = [this.foundations, this.maneuvers];
+
+    for(let i = 0; i < DeckAreas.length; i++){
+      for(let j = 0; j < DeckAreas[i].length; j++){
+        let deck = DeckAreas[i][j];
+        if(deck.isCardPlayable(card)){
+          sourceDeck.getTopCard();
+          deck.addCard(card);
+          if(sourceDeck.type == DeckTypes.Maneuver 
+            && !sourceDeck.isEmpty()
+            && !sourceDeck.top.flipped){
+              sourceDeck.flipTop();
+          }
+          return;
+        }
+      }
+    }
+  }
+
+  maneuversCleared(): boolean{
+    for(let i = 0; i < this.maneuvers.length; i++){
+      if(!this.maneuvers[i].isEmpty()){
+        return false;
+      }
+    }
+    return true;
+  }
 }

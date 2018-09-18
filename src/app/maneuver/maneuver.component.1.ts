@@ -34,6 +34,7 @@ export class ManeuverComponent implements OnInit {
 
       if(this.sourceDeck.type == DeckTypes.Waste){
         this.waste.getTopCard();
+        console.log('waste size '+this.waste.size);
       }else{
         this.sourceDeck.getTopCard();
       }
@@ -49,14 +50,7 @@ export class ManeuverComponent implements OnInit {
   }
 
   autoPlayCard(card: Card, deck: Deck){
-    if(deck.isEmpty()){
-      return;
-    }
     this.deckService.autoPlayCard(card, deck);
-  }
-
-  maneuversCleared(): boolean{
-    return this.deckService.maneuversCleared();
   }
 
 }

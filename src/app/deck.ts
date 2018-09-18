@@ -1,3 +1,4 @@
+import { RANK } from './enums/ranks';
 import { DeckTypes } from './enums/deckTypes';
 import { Card } from './card';
 
@@ -58,6 +59,28 @@ export class Deck {
 
   cardIndex(card: Card): number {
     return this.cards.indexOf(card);
+  }
+
+  isCardPlayable(card: Card): boolean{
+    if(this.type == DeckTypes.Foundation){
+      if(this.isEmpty() && card.Rank == RANK.Ace){
+        return true;
+      }
+      if(!this.isEmpty() && card.Rank == this.top.Rank+1 && card.Suit == this.top.Suit){
+        return true;
+      }
+      return false;
+    }
+
+    if(this.type == DeckTypes.Maneuver){
+      if(this.isEmpty() && card.Rank == RANK.King){
+        return true;
+      }
+      if(!this.isEmpty() && card.Color !== this.top.Color && card.Rank == this.top.Rank-1){
+        return true;
+      }
+      return false;
+    }
   }
 
 }
