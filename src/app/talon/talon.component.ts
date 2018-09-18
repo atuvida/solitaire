@@ -1,6 +1,7 @@
 import { DeckService } from './../deck.service';
 import { Deck } from './../deck';
 import { Component, OnInit } from '@angular/core';
+enum MODE{Hard = 3, Easy = 1}
 
 @Component({
   selector: 'app-talon',
@@ -9,12 +10,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TalonComponent implements OnInit {
 
-  Deck: Deck = this.deckService.talon;
+  talon: Deck = this.deckService.talon;
+  waste: Deck = this.deckService.waste;
+  maxDraw: number = MODE.Hard;
+
   constructor(private deckService: DeckService) { }
 
   ngOnInit() {
   }
 
-  ngAfterViewInit(){
+  addToWaste(): void{
+
+    if(this.talon.isEmpty() && !this.waste.isEmpty()){
+      this.recycleWaste();
+      return;
+    }
+
+    if(this.talon.isEmpty() && this.waste.isEmpty()){
+      return;
+    }
+
+    if(!this.waste.isEmpty()){
+      //reposition waste cards
+    }
+  
+    for(let i = 0; i < this.maxDraw; i++){
+      if(!this.talon.isEmpty()){
+        this.talon.top.flip();
+        this.waste.addCard(this.talon.topCard);
+      }
+    }
+  }
+
+
+  recycleWaste(): void{
+    while(!this.waste.isEmpty()){
+      this.waste.top.flip();
+      this.talon.addCard(this.waste.topCard);
+    }
   }
 }

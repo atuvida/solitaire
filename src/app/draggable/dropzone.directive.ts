@@ -7,7 +7,7 @@ import { Deck } from '../deck';
 })
 export class DropzoneDirective implements OnInit{
 
-  @Input('thisDeck') thisDeck: Deck;
+  @Input('thisDeck') deck: Deck;
   
   @Output() drop = new EventEmitter<PointerEvent>();
 
@@ -19,6 +19,7 @@ export class DropzoneDirective implements OnInit{
       return;
     }
     this.entered = true;
+    this.droppableService.setDropZone(this.deck);
   }
 
   @HostListener('pointerleave') onPointerLeave(): void {

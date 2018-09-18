@@ -42,17 +42,22 @@ export class Deck {
         return DeckTypes[this._type];
     }
 
-    removeSetFrom(index: number): Card[] {
-        return this.cards.splice(index+1, this.size - index);
+    createSetAfter(index: number): Card[] {
+        return this.cards.splice(index + 1, this.size - index);
     }
 
-    addSet(cardset: Card[]): void{
-        while(cardset.length > 0){
-            this.cards.push(cardset.splice(0,1)[0]);
+    addSet(cardset: Card[]): void {
+        while (cardset.length > 0) {
+            this.cards.push(cardset.splice(0, 1)[0]);
         }
     }
-  
-  contains(card: Card): boolean{
-    return this.cards.indexOf(card) !== -1;
-  }
+
+    contains(card: Card): boolean {
+        return this.cards.indexOf(card) !== -1;
+    }
+
+    cardIndex(card: Card): number{
+        return this.cards.indexOf(card);
+    }
+
 }

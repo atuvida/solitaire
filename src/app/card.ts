@@ -31,7 +31,11 @@ export class Card{
     }
 
     flip(): void{
-        this._flipped = true;
-        console.log('flipped '+this.id);
+        if(!this._flipped){
+            this._flipped = true;
+            console.log('flipped '+this.id);
+            return;
+        }
+        this._flipped = false;
     }
 }

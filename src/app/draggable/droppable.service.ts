@@ -1,13 +1,18 @@
-import { Position } from './movable.directive';
+import { Card } from './../card';
 import { Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { Deck } from '../deck';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class DroppableService {
 
-  startPosition: Position;
+  droppableCard: Card;
+  sourceDeck: Deck;
+  droppableCardSet: Card[] = [];
+  droppableZone: Deck;
 
   dragStart$:Observable<PointerEvent>;
   dragEnd$:Observable<PointerEvent>;
@@ -39,5 +44,21 @@ export class DroppableService {
     event.preventDefault();
     event.stopPropagation();
     this.dragEndSubject.next(event);
+  }
+
+  setDroppableCard(card: Card){
+    this.droppableCard = card;
+  }
+
+  setDropZone(deck: Deck){
+    this.droppableZone = deck;
+  }
+  
+  setDroppableCardSource(deck: Deck){
+    this.sourceDeck = deck;
+  }
+
+  createDroppableSet(cardSet: Card[]){
+    this.droppableCardSet = cardSet;
   }
 }

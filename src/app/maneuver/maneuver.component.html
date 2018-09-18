@@ -1,18 +1,12 @@
-<div class="placeHolder" *ngFor="let maneuver of maneuvers;" id="{{maneuver.id}}" dropzone [thisDeck]="maneuver" (drop)="addCurrentCard(maneuver)">
+<div class="placeHolder" *ngFor="let maneuver of maneuvers;" id="{{maneuver.id}}" dropzone [thisDeck]="maneuver" (drop)="drop()">
   <ng-template ngFor let-card [ngForOf]="maneuver.cards" let-i="index">
     <div class="cards" id="{{card.id}}" *ngIf="!card.flipped; else elseBlock" [ngStyle]="{'background-image': 'url(./assets/img/cards/back.png)',
                   'margin-top':i*30+'%'}"></div>
     <ng-template #elseBlock>
       <div class="cards" id="{{card.id + '-'+card.flipped}}" 
           [ngStyle]="{'background-image':'url(./assets/img/cards/'+card.Suit+'/'+card.id+'.png)','margin-top':i*30+'%'}" 
-          movable (dragStart)="currentCard = card; sourceDeck = maneuver; moveCardSet();" (dragEnd)="returnSet()">
+          movable [droppableCard]="card"  [sourceDeck]="maneuver">
       </div>
     </ng-template>
   </ng-template>
-</div>
-<div movableSet class="movableSet" *ngFor="let card of movableSet; let ind = index;">
-  <div class="cards" 
-  [ngStyle]="{'background-image':'url(./assets/img/cards/'+card.Suit+'/'+card.id+'.png)',
-  'margin-top':ind*30+'%'}">
-  </div>
 </div>

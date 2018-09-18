@@ -1,13 +1,16 @@
+import { DeckService } from './../deck.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-waste',
-  template: `<div class="placeHolder" id="waste_0"></div>`,
+  templateUrl: './waste.component.html',
   styleUrls: ['./waste.component.scss']
 })
 export class WasteComponent implements OnInit {
+  waste = this.deckService.waste;
+  talon = this.deckService.talon;
 
-  constructor() { }
+  constructor(private deckService: DeckService) { }
 
   ngOnInit() {
   }

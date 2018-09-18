@@ -1,3 +1,5 @@
+import { Deck } from './../deck';
+import { Card } from './../card';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DroppableService } from './droppable.service';
 import { Directive, HostListener, Input } from '@angular/core';
@@ -8,6 +10,10 @@ import { Directive, HostListener, Input } from '@angular/core';
 export class DroppableDirective{
 
   sanitizer: DomSanitizer;
+  droppableSet: Card[];
+
+  @Input('droppableCard') droppableCard: Card;
+  @Input('sourceDeck') sourceDeck: Deck;
 
   constructor(private droppableService: DroppableService) {
    }
@@ -17,6 +23,17 @@ export class DroppableDirective{
      event.preventDefault();
      event.stopPropagation();
      this.droppableService.onDragStart(event);
+     this.droppableService.setDroppableCard(this.droppableCard);
+     this.droppableService.setDroppableCardSource(this.sourceDeck);
+    if(this.sourceDeck == undefined){
+      console.log('undefined source deck');
+      return;
+    }
+     if(this.droppableCard !== this.sourceDeck.top){
+      this.droppableSet = this.sourceDeck.createSetAfter(this.sourceDeck.cardIndex(this.droppableCard));
+      this.droppableService.createDroppableSet(this.droppableSet);
+     }
+
    }
    
   @HostListener('dragMove', ['$event'])
@@ -31,5 +48,8 @@ export class DroppableDirective{
     event.preventDefault();
     event.stopPropagation();
     this.droppableService.onDragEnd(event);
+    if(this.droppableSet !== undefined){
+     this.sourceDeck.addSet(this.droppableSet);
+    }
   }
 }

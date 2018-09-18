@@ -1,7 +1,7 @@
+import { DeckService } from './../deck.service';
+import { DroppableService } from './../draggable/droppable.service';
 import { Card } from './../card';
 import { Deck } from '../deck';
-import { GameControlService } from './../game-control.service';
-import { DeckService } from './../deck.service';
 import { Component, OnInit } from '@angular/core';
 import { RANK } from '../enums/ranks';
 @Component({
@@ -10,63 +10,61 @@ import { RANK } from '../enums/ranks';
   styleUrls: ['./maneuver.component.scss']
 })
 export class ManeuverComponent implements OnInit {
-
   maneuvers = this.deckService.maneuvers;
-  currentCard?: Card ;
+  waste = this.deckService.waste;
+
+  draggedCard?: Card;
   sourceDeck?: Deck;
-  movableSet: Card[] = [];
+  draggedSet?: Card[];
+  deck?: Deck;
 
-  constructor(private deckService: DeckService, private gameControl: GameControlService) {
+  constructor(private deckService: DeckService ,private droppableService: DroppableService) {
   }
 
-  ngOnInit() {
+  ngOnInit() {  }
 
-  }
+  drop() {
+    this.deck = this.droppableService.droppableZone;
+    this.draggedCard = this.droppableService.droppableCard;
+    this.sourceDeck = this.droppableService.sourceDeck;
 
-  addCurrentCard(deck: Deck) {
-    let card = this.currentCard;
+    if(this.isCardValid(this.draggedCard)){
+      if(this.sourceDeck !== undefined){
+        this.sourceDeck.topCard;
+      }else{
+        this.waste.topCard;
+        console.log('waste size '+this.waste.size);
+      } 
+      this.deck.addCard(this.draggedCard);
 
-    if(card == deck.top){
-      return;
-    }
-
-    if(deck.isEmpty() && card.Rank == RANK.King){
-      this.sourceDeck.topCard;
-      deck.addCard(card);
-      if(!deck.isEmpty()){
-        deck.flipTop();
+      this.draggedSet = this.droppableService.droppableCardSet;
+      
+      if(this.draggedSet !== undefined){
+        this.deck.addSet(this.draggedSet);
       }
-    }
 
-    let topCard = deck.top;
-    if(card.Color !== topCard.Color && card.Rank == topCard.Rank-1){
-      this.sourceDeck.topCard;
-      deck.addCard(card);
-
-      if(this.movableSet.length > 0){
-        deck.addSet(this.movableSet);
+      if( this.sourceDeck == undefined){
+        return;
       }
-    }    
 
-    if(!this.sourceDeck.isEmpty()){
-      this.sourceDeck.flipTop();
+      if(!this.sourceDeck.isEmpty() && !this.sourceDeck.top.flipped){
+        this.sourceDeck.flipTop();
+      }
+
+    }
+  }
+
+  isCardValid(card: Card): boolean{
+
+    if(this.deck.isEmpty() && this.draggedCard.Rank == RANK.King){
+      return true;
     }
 
-  }
+    if(!this.deck.isEmpty() && this.draggedCard.Color !== this.deck.top.Color && this.draggedCard.Rank == this.deck.top.Rank-1){
+      return true;
+    }
     
-  moveCardSet(): void{
-    let deck = this.sourceDeck;
-    
-    if(deck.top == this.currentCard){
-      return;
-    }
-    this.movableSet = deck.removeSetFrom(deck.cards.indexOf(this.currentCard));
-    console.log('set first card '+ this.movableSet[0].id);
+    return false;
   }
 
-  returnSet(): void{
-    if(this.sourceDeck.cards.indexOf(this.currentCard) !== -1){
-      this.sourceDeck.addSet(this.movableSet);
-    }
-  }
 }

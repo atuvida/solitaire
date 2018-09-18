@@ -1,4 +1,3 @@
-import { DroppableService } from './droppable.service';
 import { Directive, HostListener, HostBinding } from '@angular/core';
 import { AppDraggableDirective } from './app-draggable.directive';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
@@ -21,7 +20,7 @@ export class MovableDirective extends AppDraggableDirective{
 
   @HostBinding('class.movable') movable = true;
 
-  constructor(private sanitizer: DomSanitizer, private droppableService: DroppableService){
+  constructor(private sanitizer: DomSanitizer){
     super();
   }
 
@@ -37,18 +36,17 @@ export class MovableDirective extends AppDraggableDirective{
       x: event.clientX - this.position.x,
       y: event.clientY - this.position.y
     }
-    this.droppableService.startPosition = {
-      x: event.clientX - this.position.x,
-      y: event.clientY - this.position.y
-    };
   }
 
   @HostListener('dragMove', ['$event']) 
   onDragMove(event: PointerEvent){
     event.preventDefault();
     event.stopPropagation();
-    this.position.x = event.clientX - this.startPosition.x,
-    this.position.y = event.clientY - this.startPosition.y
+    this.position = {
+      x: event.clientX - this.startPosition.x,
+      y: event.clientY - this.startPosition.y
+    }
+    // this.droppableService.setDroppableSetPos(this.position);
   }
 
   @HostListener('dragEnd', ['$event']) 
