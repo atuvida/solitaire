@@ -4,6 +4,7 @@ import { Card } from './../card';
 import { Deck } from '../deck';
 import { Component, OnInit } from '@angular/core';
 import { RANK } from '../enums/ranks';
+import { DeckTypes } from '../enums/deckTypes';
 @Component({
   selector: 'app-maneuver',
   templateUrl: './maneuver.component.html',
@@ -29,25 +30,18 @@ export class ManeuverComponent implements OnInit {
     this.sourceDeck = this.droppableService.sourceDeck;
 
     if(this.isCardValid(this.draggedCard)){
-      if(this.sourceDeck !== undefined){
-        this.sourceDeck.topCard;
-      }else{
-        this.waste.topCard;
+
+      if(this.sourceDeck.type == DeckTypes.Waste){
+        this.waste.getTopCard();
         console.log('waste size '+this.waste.size);
-      } 
+      }else{
+        this.sourceDeck.getTopCard();
+      }
       this.deck.addCard(this.draggedCard);
 
-      this.draggedSet = this.droppableService.droppableCardSet;
-      
-      if(this.draggedSet !== undefined){
-        this.deck.addSet(this.draggedSet);
-      }
-
-      if( this.sourceDeck == undefined){
-        return;
-      }
-
-      if(!this.sourceDeck.isEmpty() && !this.sourceDeck.top.flipped){
+      if(!this.sourceDeck.isEmpty() 
+      && !this.sourceDeck.top.flipped
+      && this.sourceDeck.type !== DeckTypes.Waste){
         this.sourceDeck.flipTop();
       }
 

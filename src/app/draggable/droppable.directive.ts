@@ -25,10 +25,7 @@ export class DroppableDirective{
      this.droppableService.onDragStart(event);
      this.droppableService.setDroppableCard(this.droppableCard);
      this.droppableService.setDroppableCardSource(this.sourceDeck);
-    if(this.sourceDeck == undefined){
-      console.log('undefined source deck');
-      return;
-    }
+
      if(this.droppableCard !== this.sourceDeck.top){
       this.droppableSet = this.sourceDeck.createSetAfter(this.sourceDeck.cardIndex(this.droppableCard));
       this.droppableService.createDroppableSet(this.droppableSet);
@@ -49,7 +46,7 @@ export class DroppableDirective{
     event.stopPropagation();
     this.droppableService.onDragEnd(event);
     if(this.droppableSet !== undefined){
-     this.sourceDeck.addSet(this.droppableSet);
+      this.sourceDeck.addSet(this.droppableSet);
     }
   }
 }

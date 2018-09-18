@@ -58,7 +58,7 @@ export class DeckService {
   distributeCards(){
     for (let i = 0; i < this.maneuvers.length; i++) {
       for (let j = i; j < this.maneuvers.length; j++) {
-        let topCard = this.mainDeck.topCard;
+        let topCard = this.mainDeck.getTopCard();
         let maneuver = this.maneuvers[j];
         maneuver.addCard(topCard);
       }
@@ -66,7 +66,7 @@ export class DeckService {
     }
 
     while(!this.mainDeck.isEmpty()){
-      let topCard = this.mainDeck.topCard;
+      let topCard = this.mainDeck.getTopCard();
       this.talon.addCard(topCard);
     }
   }  

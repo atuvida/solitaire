@@ -1,3 +1,4 @@
+import { DeckTypes } from './../enums/deckTypes';
 import { Card } from './../card';
 import { RANK } from './../enums/ranks';
 import { DroppableService } from './../draggable/droppable.service';
@@ -13,6 +14,7 @@ import { Deck } from '../deck';
 export class FoundationComponent implements OnInit {
 
   foundations = this.deckService.foundations;
+  waste = this.deckService.waste;
 
   sourceDeck?: Deck;
   draggedCard?: Card;
@@ -26,22 +28,26 @@ export class FoundationComponent implements OnInit {
   ngOnInit() {
   }
 
-  drop(deck: Deck) {
+  drop() {
     this.deck = this.droppableService.droppableZone;
     this.sourceDeck = this.droppableService.sourceDeck;
     this.draggedCard = this.droppableService.droppableCard;
     
     if(this.isCardValid(this.draggedCard)){
-      this.sourceDeck.topCard;
-      this.deck.addCard(this.draggedCard);
       
-      if(this.draggedSet !== undefined){
-        this.deck.addSet(this.draggedSet);
+      if(this.sourceDeck.type == DeckTypes.Waste){
+        this.waste.getTopCard();
+      }else{
+        this.sourceDeck.getTopCard();
       }
+      this.deck.addCard(this.draggedCard);
 
-      if(!this.sourceDeck.isEmpty()){
+      if(!this.sourceDeck.isEmpty() 
+      && !this.sourceDeck.top.flipped
+      && this.sourceDeck.type !== DeckTypes.Waste){
         this.sourceDeck.flipTop();
       }
+
 
     }
   }

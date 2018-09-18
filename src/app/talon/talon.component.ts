@@ -37,7 +37,7 @@ export class TalonComponent implements OnInit {
     for(let i = 0; i < this.maxDraw; i++){
       if(!this.talon.isEmpty()){
         this.talon.top.flip();
-        this.waste.addCard(this.talon.topCard);
+        this.waste.addCard(this.talon.getTopCard());
       }
     }
   }
@@ -46,7 +46,7 @@ export class TalonComponent implements OnInit {
   recycleWaste(): void{
     while(!this.waste.isEmpty()){
       this.waste.top.flip();
-      this.talon.addCard(this.waste.topCard);
+      this.talon.addCard(this.waste.getTopCard());
     }
   }
 }

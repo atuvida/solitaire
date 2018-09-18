@@ -10,7 +10,7 @@ export class GameControlService {
 
   initializeGame(){
       this.deckService.generateMainDeck();
-      this.deckService.shuffleDeckCards();
+      // this.deckService.shuffleDeckCards();
       this.deckService.createGameDecks();
       this.deckService.distributeCards();
   }
