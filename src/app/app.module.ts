@@ -10,6 +10,7 @@ import { FoundationComponent } from './foundation/foundation.component';
 import { ManeuverComponent } from './maneuver/maneuver.component';
 import { TalonComponent } from './talon/talon.component';
 import { WasteComponent } from './waste/waste.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { WasteComponent } from './waste/waste.component';
     FoundationComponent,
     ManeuverComponent,
     TalonComponent,
-    WasteComponent
+    WasteComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule, 
