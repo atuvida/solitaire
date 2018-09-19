@@ -1,7 +1,8 @@
+import { DeckTypes, RANK, SUIT } from './enums/enums';
+import { UtilityService } from './utility.service';
 import { Deck } from './deck';
 import { Card } from './card';
 import { Injectable } from '@angular/core';
-import { DeckTypes } from './enums/deckTypes';
 
 const maxRank = 13, maxSuit = 4;
 const maneuverCount = 7, foundationCount = 4;
@@ -10,17 +11,19 @@ const maneuverCount = 7, foundationCount = 4;
   providedIn: 'root'
 })
 export class DeckService {
-  constructor() { }
+  constructor(private utilityService: UtilityService) { }
 
   mainDeck: Deck; 
+  mainDeckCopy: Deck = new Deck('deckCopy',DeckTypes.Main);
   talon: Deck = new Deck('talon_0',DeckTypes.Talon);
   waste: Deck = new Deck('waste_0',DeckTypes.Waste);
   maneuvers: Deck[] = [];
   foundations: Deck[] = [];
 
-  deckCreated: boolean = false;
-
   generateMainDeck(): void{
+
+    let maxRank = Object.keys(RANK).length/2.
+    let maxSuit = Object.keys(SUIT).length/2.
 
     this.mainDeck = new Deck('Main',DeckTypes.Main);
 
@@ -30,7 +33,8 @@ export class DeckService {
         this.mainDeck.addCard(card);
       }
     }
-    this.deckCreated = true;
+
+    this.mainDeckCopy = Object.assign(this.mainDeck);
   }
 
   createGameDecks(){
@@ -40,7 +44,7 @@ export class DeckService {
     }
 
     for (let i = 0; i < foundationCount; i++) {
-      let foundation = new Deck('foundation_'+i, DeckTypes.Foundation);
+      let foundation = new Deck('foundation_'+i, DeckTypes.Foundation,this, this.utilityService);
       this.foundations.push(foundation);
     }
   }
@@ -97,5 +101,28 @@ export class DeckService {
       }
     }
     return true;
+  }
+
+  foundationsComplete(): boolean{
+    for(let i = 0; i < this.foundations.length; i++){
+      if(this.foundations[i].size < 13){
+        return true;
+      }
+    }
+    console.log('game won');
+    return true;
+  }
+
+  clearDecks(){
+    for(let i = 0; i < this.foundations.length; i++){
+      this.foundations[i].clear();
+    }
+    
+    for(let i = 0; i < this.maneuvers.length; i++){
+      this.maneuvers[i].clear();
+    }
+    this.talon.clear();
+    this.waste.clear();
+    this.mainDeck.clear();
   }
 }

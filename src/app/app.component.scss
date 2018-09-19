@@ -1,0 +1,17 @@
+.activeOverlay{
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: 2000;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+}
+.inactiveOverlay{
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	z-index: -1000;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+}

@@ -10,7 +10,7 @@ import { Directive, HostListener, Input } from '@angular/core';
 export class DroppableDirective{
 
   sanitizer: DomSanitizer;
-  droppableSet: Card[];
+  droppableSet: Card[] = [];
 
   @Input('droppableCard') droppableCard: Card;
   @Input('sourceDeck') sourceDeck: Deck;
@@ -27,7 +27,7 @@ export class DroppableDirective{
      this.droppableService.setDroppableCardSource(this.sourceDeck);
 
      if(this.droppableCard !== this.sourceDeck.top){
-      this.droppableSet = this.sourceDeck.createSetAfter(this.sourceDeck.cardIndex(this.droppableCard));
+      this.droppableSet = this.sourceDeck.createSetFromIndex(this.sourceDeck.cardIndex(this.droppableCard));
       this.droppableService.createDroppableSet(this.droppableSet);
      }
 
@@ -45,7 +45,8 @@ export class DroppableDirective{
     event.preventDefault();
     event.stopPropagation();
     this.droppableService.onDragEnd(event);
-    if(this.droppableSet !== undefined){
+
+    if(this.droppableSet.length > 0 && this.droppableCard == this.sourceDeck.top){
       this.sourceDeck.addSet(this.droppableSet);
     }
   }

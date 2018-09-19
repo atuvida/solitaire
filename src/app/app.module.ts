@@ -1,3 +1,4 @@
+import { UtilityService } from './utility.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DraggableModule } from './draggable/draggable.module';
 import { GameControlService } from './game-control.service';
@@ -11,6 +12,7 @@ import { ManeuverComponent } from './maneuver/maneuver.component';
 import { TalonComponent } from './talon/talon.component';
 import { WasteComponent } from './waste/waste.component';
 import { MenuComponent } from './menu/menu.component';
+import { OverlayComponent } from './overlay/overlay.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +21,15 @@ import { MenuComponent } from './menu/menu.component';
     ManeuverComponent,
     TalonComponent,
     WasteComponent,
-    MenuComponent
+    MenuComponent,
+    OverlayComponent
   ],
   imports: [
     BrowserModule, 
     DraggableModule,
     BrowserAnimationsModule
   ],
-  providers: [DeckService, GameControlService],
+  providers: [DeckService, GameControlService, UtilityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

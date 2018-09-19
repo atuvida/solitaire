@@ -1,8 +1,4 @@
-import { RANK } from './enums/ranks';
-import { SUIT } from './enums/suits';
-import { COLOR } from './enums/colors';
-
-COLOR
+import { COLOR, SUIT } from './enums/enums';
 
 export class Card{
 
@@ -16,6 +12,7 @@ export class Card{
     get Suit(){
         return this.suit;
     }
+    
     get Rank(){
         return this.rank;
     }

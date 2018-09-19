@@ -1,15 +1,16 @@
-import { flipAnimation2 } from './../animations';
+import { DeckTypes } from './../enums/enums';
+import { flipAnimation2, flipAnimation3, flipAnimation4 } from './../animations';
 import { DeckService } from './../deck.service';
 import { DroppableService } from './../draggable/droppable.service';
 import { Card } from './../card';
 import { Deck } from '../deck';
 import { Component, OnInit } from '@angular/core';
-import { DeckTypes } from '../enums/deckTypes';
+
 @Component({
   selector: 'app-maneuver',
   templateUrl: './maneuver.component.html',
   styleUrls: ['./maneuver.component.scss'],
-  animations: [flipAnimation2]
+  animations: [flipAnimation2, flipAnimation3, flipAnimation4]
 })
 export class ManeuverComponent implements OnInit {
   maneuvers = this.deckService.maneuvers;
@@ -39,12 +40,17 @@ export class ManeuverComponent implements OnInit {
       }
       this.deck.addCard(this.draggedCard);
 
+      this.draggedSet = this.droppableService.droppableCardSet;
+
+      if(this.draggedSet.length > 0){
+        this.deck.addSet(this.draggedSet);
+      }
+
       if(!this.sourceDeck.isEmpty() 
       && !this.sourceDeck.top.flipped
       && this.sourceDeck.type !== DeckTypes.Waste){
         this.sourceDeck.flipTop();
       }
-
     }
   }
 

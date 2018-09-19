@@ -1,1 +1,0 @@
-export enum COLOR{Red = 0, Black = 1};

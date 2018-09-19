@@ -1,17 +1,25 @@
-import { RANK } from './enums/ranks';
-import { DeckTypes } from './enums/deckTypes';
+import { DeckTypes, RANK } from './enums/enums';
+import { DeckService } from './deck.service';
+import { UtilityService } from './utility.service';
 import { Card } from './card';
 
 export class Deck {
 
   cards: Card[] = [];
 
-  constructor(private _id: string, private _type: DeckTypes) {
+  constructor(private _id: string, private _type: DeckTypes, 
+    private deckService?: DeckService, 
+    private utilityService?: UtilityService) {
   }
 
   addCard(card: Card): void {
     this.cards.push(card);
     console.log('added ' + card.id + " to " + this.id);
+    if(this.type == DeckTypes.Foundation){
+      if(this.deckService.foundationsComplete()){
+        this.utilityService.gameWon();
+      }
+    }
   }
 
   getTopCard(): Card {
@@ -43,13 +51,13 @@ export class Deck {
     return this._type;
   }
 
-  createSetAfter(index: number): Card[] {
+  createSetFromIndex(index: number): Card[] {
     return this.cards.splice(index + 1, this.size - index);
   }
 
   addSet(cardset: Card[]): void {
     while (cardset.length > 0) {
-      this.cards.push(cardset.splice(0, 1)[0]);
+      this.addCard(cardset.splice(0, 1)[0]);
     }
   }
 
@@ -81,6 +89,10 @@ export class Deck {
       }
       return false;
     }
+  }
+
+  clear(){
+    this.cards = [];
   }
 
 }

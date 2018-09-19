@@ -1,9 +1,10 @@
-<div [@flip2]="maneuver.cards.size" 
+<div 
+[@enter]="maneuver.size" 
 [class.emptyDeck]="maneuversCleared()"  
 [class.placeHolder]="!maneuversCleared()"  
 *ngFor="let maneuver of maneuvers;" id="{{maneuver.id}}" 
 dropzone [thisDeck]="maneuver" (drop)="drop()" (click)="autoPlayCard(maneuver.top, maneuver);">
-  <ng-template ngFor let-card [ngForOf]="maneuver.cards" let-i="index">
+  <ng-template  ngFor let-card [ngForOf]="maneuver.cards" let-i="index">
     <div class="cards" id="{{card.id}}" *ngIf="!card.flipped; else elseBlock" [ngStyle]="{'background-image': 'url(./assets/img/cards/back.png)',
                   'margin-top':i*25+'%'}"></div>
     <ng-template #elseBlock>

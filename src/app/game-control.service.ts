@@ -14,4 +14,17 @@ export class GameControlService {
       this.deckService.createGameDecks();
       this.deckService.distributeCards();
   }
+
+  restartGame(){
+    this.deckService.clearDecks();
+    this.deckService.mainDeck = Object.assign(this.deckService.mainDeckCopy);
+    this.deckService.distributeCards();
+  }
+
+  newGame(){
+    this.deckService.clearDecks();
+    location.reload();
+       
+  }
+
 }

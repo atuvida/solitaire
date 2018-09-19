@@ -1,6 +1,5 @@
-import { DeckTypes } from './../enums/deckTypes';
+import { DeckTypes } from './../enums/enums';
 import { Card } from './../card';
-import { RANK } from './../enums/ranks';
 import { DroppableService } from './../draggable/droppable.service';
 import { DeckService } from './../deck.service';
 import { Component, OnInit } from '@angular/core';
