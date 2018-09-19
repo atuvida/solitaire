@@ -1,6 +1,6 @@
 <div class="placeHolder" *ngFor="let foundation of foundations; let i = index" id="{{foundation.id}}" dropzone
   [thisDeck]="foundation" (drop)="drop()" (click)="autoPlayCard(foundation.top,foundation)" >
   <div class="cards" id="{{card.id + '-'+card.flipped}}" *ngFor="let card of foundation.cards;" [ngStyle]="{'background-image':'url(./assets/img/cards/'+card.Suit+'/'+card.id+'.png)','margin-top':'0%'}"
-    movable [droppableCard]="card" [sourceDeck]="foundation" >
+    movable droppable [droppableCard]="card" [sourceDeck]="foundation" >
   </div>
 </div>

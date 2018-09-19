@@ -1,14 +1,7 @@
-<div id="menu">
-  <div id="new">
+<div id="menuHead" (click)="toggleMenu()" >
+</div>
 
-  </div>
-  <div id="restart">
-
-  </div>
-  <div id="hint">
-
-  </div>
-  <div id="logs">
-    
-  </div>
+<div id="{{'menu'+i}}" *ngFor="let item of menu; let i = index; let even = even; let odd = odd" 
+[class.menuVar1]="odd" [class.menuVar2]="even" >
+  {{item}}
 </div>

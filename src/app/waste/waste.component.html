@@ -2,7 +2,7 @@
   <ng-template ngFor let-card [ngForOf]="waste.cards  | slice:-3" let-i="index" >
       <div class="cards" id="{{card.id}}" *ngIf="card == waste.top; else elseBlock;"
       [ngStyle]="{'background-image':'url(./assets/img/cards/'+card.Suit+'/'+card.id+'.png)',
-      'margin-left':i*30+'%'}"  movable [droppableCard]="card" [sourceDeck]="waste">
+      'margin-left':i*30+'%'}"  movable droppable [droppableCard]="card" [sourceDeck]="waste">
       </div>
       <ng-template #elseBlock>
           <div class="cards" id="{{card.id}}" [ngStyle]="{'background-image':'url(./assets/img/cards/'+card.Suit+'/'+card.id+'.png)','margin-left':i*30+'%'}">
