@@ -26,9 +26,9 @@ export class MenuComponent implements OnInit {
       this.clearMenu();
       return;
     }
-    console.log('operation cancelled');
-    this.menu.length = 0;
-    return;
+    while(this.menu.length > 0){
+      this.menu.pop();
+    }
   }
 
   clearMenu(){
@@ -37,7 +37,7 @@ export class MenuComponent implements OnInit {
         console.log('clearing menu');
         this.menu.pop();
         this.clearMenu();
-      }, 100);
+      }, 50);
     }
   }
 
@@ -48,7 +48,7 @@ export class MenuComponent implements OnInit {
         this.menu.push(this.menuItems[this.menuItemsCnt]);
         this.loadMenu();
         this.menuItemsCnt++;
-      }, 100);
+      }, 50);
     }
     if(this.menuItemsCnt == 4){
       this.menuItemsCnt = 0;

@@ -20,6 +20,7 @@ position: absolute;
   padding: 2px;
   width: 80px;
   transition: all ease-in 0.6s;
+  user-select: none;
 }
 
 .menuVar2{
@@ -32,10 +33,21 @@ position: absolute;
   color: white;
   padding: 2px;
   width: 80px;
-  transition: all ease-in 0.6s;
+  transition: ease-in-out;
+  user-select: none;
 }
 
-
+.menuVar1:hover{
+  color: black;
+  background-color: white;
+  transition: none;
+  
+}
+.menuVar2:hover{
+  color: black;
+  background-color: white;
+  transition: none;
+}
 #menu0{
   transform: translate(-27px,-60px) rotateZ(80deg);
   z-index: 100;
