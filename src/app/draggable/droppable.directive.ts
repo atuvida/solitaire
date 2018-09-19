@@ -5,7 +5,7 @@ import { DroppableService } from './droppable.service';
 import { Directive, HostListener, Input } from '@angular/core';
 
 @Directive({
-  selector: '[droppable], [movable]'
+  selector: '[droppable]'
 })
 export class DroppableDirective{
 
