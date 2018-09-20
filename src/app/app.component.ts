@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnDestroy {
-  activeOverlay: boolean;
+  activeOverlay: boolean = true;
   subscription: Subscription;
 
   constructor(private utilityService: UtilityService, private gameControl: GameControlService){
@@ -19,12 +19,7 @@ export class AppComponent implements OnDestroy {
   ngOnInit(){
     this.gameControl.initializeGame();
   }
-  
-  closeOverlay(): void{
-    this.utilityService.setStatus(false);
-    this.gameControl.restartGame();
-  }
-  
+    
   ngOnDestroy(): void{
     this.subscription.unsubscribe();
   }

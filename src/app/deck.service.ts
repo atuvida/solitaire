@@ -33,8 +33,6 @@ export class DeckService {
         this.mainDeck.addCard(card);
       }
     }
-
-    this.mainDeckCopy = Object.assign(this.mainDeck);
   }
 
   createGameDecks(){
@@ -106,23 +104,33 @@ export class DeckService {
   foundationsComplete(): boolean{
     for(let i = 0; i < this.foundations.length; i++){
       if(this.foundations[i].size < 13){
-        return true;
+        return false;
       }
     }
-    console.log('game won');
     return true;
   }
 
   clearDecks(){
-    for(let i = 0; i < this.foundations.length; i++){
-      this.foundations[i].clear();
-    }
-    
-    for(let i = 0; i < this.maneuvers.length; i++){
-      this.maneuvers[i].clear();
+    let foundManDecks = [this.foundations,this.maneuvers];
+    for(let i = 0; i < foundManDecks.length; i++){
+      for(let j = 0; j < foundManDecks[i].length; j++){
+        foundManDecks[i][j].clear();
+      }
     }
     this.talon.clear();
     this.waste.clear();
     this.mainDeck.clear();
+  }
+
+  copyDeck(targetDeck: Deck, deckSource: Deck){
+    let index = 0;
+    console.log('copying '+targetDeck.id+' from '+deckSource.id);
+    while(index < deckSource.size){
+      if(deckSource.cards[index].flipped){
+        deckSource.cards[index].flip();
+      }
+      targetDeck.addCard(deckSource.cards[index]);
+      index++;
+    }
   }
 }

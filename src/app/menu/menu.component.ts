@@ -1,33 +1,39 @@
-import { flipAnimation } from './../animations';
+import { GameControlService } from './../game-control.service';
+import { flipAnimation4 } from './../animations';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
-  animations: [ flipAnimation ]
+  animations: [ flipAnimation4 ]
 })
 export class MenuComponent implements OnInit {
-  menu: string[] = [];
-  menuItems: string[] = ['New', 'Restart', 'Hints', 'Logs'];
-  menuItemsCnt = 0;
+  menuItems: string[] = [];
+  menu: string[] = ['New', 'Restart', 'Hints', 'Logs'];
+  toggleActivationCnt: number = 0;
 
-  constructor() { }
+  constructor(private gameControl: GameControlService) { }
 
   ngOnInit() {
   }
 
   toggleMenu(){
+    this.toggleActivationCnt++;
+    console.log('toggles '+this.toggleActivationCnt+' menu length '+this.menu.length);
+    if(this.toggleActivationCnt > 1){
+      console.log('multiple toggles');
+      this.menu.length = 0;
+    }
     if(this.menu.length == 0){
       this.loadMenu();
+      this.toggleActivationCnt = 0;
       return;
     }
     if(this.menu.length == 4){
       this.clearMenu();
+      this.toggleActivationCnt = 0;
       return;
-    }
-    while(this.menu.length > 0){
-      this.menu.pop();
     }
   }
 
@@ -35,27 +41,47 @@ export class MenuComponent implements OnInit {
     if(this.menu.length>0){
       setTimeout(() => {
         console.log('clearing menu');
-        this.menu.pop();
+        this.menuItems.push(this.menu.pop());
         this.clearMenu();
       }, 50);
     }
   }
 
   loadMenu(){
-    if(this.menuItemsCnt < 3){
+    if(this.menu.length < 4){
       console.log('loading menu');
       setTimeout(() => {
-        this.menu.push(this.menuItems[this.menuItemsCnt]);
+        this.menu.push(this.menuItems[this.menu.length]);
         this.loadMenu();
-        this.menuItemsCnt++;
       }, 50);
     }
-    if(this.menuItemsCnt == 4){
-      this.menuItemsCnt = 0;
+  }
+
+  selected(menuOption: string){
+    if(menuOption == 'Restart'){
+      this.restart();
     }
-    while(this.menu.length > 4){
-      this.menu.pop();
+    if(menuOption == 'New'){
+      this.newGame();
+    }
+    if(menuOption == 'Hints'){
+      this.newGame();
+    }
+    if(menuOption == 'Logs'){
+      this.newGame();
     }
   }
+
+  
+  selectionMade(option: string){
+  }
+  restart(): void{
+    this.gameControl.restartGame();
+  }
+
+  newGame(): void{
+    this.gameControl.newGame();
+  }
+  
 
 }

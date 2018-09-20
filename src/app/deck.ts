@@ -14,7 +14,7 @@ export class Deck {
 
   addCard(card: Card): void {
     this.cards.push(card);
-    console.log('added ' + card.id + " to " + this.id);
+    console.log('added ' + card.id +''+card.flipped+ " to " + this.id);
     if(this.type == DeckTypes.Foundation){
       if(this.deckService.foundationsComplete()){
         this.utilityService.gameWon();
@@ -93,6 +93,9 @@ export class Deck {
 
   clear(){
     this.cards = [];
+    while(!this.isEmpty()){
+      this.getTopCard();
+    }
   }
 
 }

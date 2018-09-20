@@ -2,6 +2,7 @@ body{
 background: url(./assets/img/background.png) no-repeat center center fixed; 
 background-size: cover;
 font-size: 150%;
+overflow: hidden;
 }
 
 .cards{
@@ -29,6 +30,7 @@ font-size: 150%;
     
 .draggable{
 user-select: none;
+cursor: pointer;
 }
 
 .movable:not(.dragging){
@@ -83,7 +85,7 @@ grid-column: 2/span 1;
 .loadedDeck{
   width: auto;
   height:auto;
-  border-radius: 13px;
+  border-radius: 10px;
   background-image: url("./assets/img/placeholder.png");
   background-size: 100% 100%;
   position: relative;
@@ -93,18 +95,18 @@ grid-column: 2/span 1;
 .emptyTalon{
   width: auto;
   height:auto;
-  border-radius: 13px;
+  border-radius: 10px;
   background-image: url("./assets/img/wasteReuse.png");
   background-size: 100% 100%;
   position: relative;
   border: 1.5px solid white;
 }
 
-.emptyWaste{
+.loadedWaste{
   width: auto;
   height:auto;
-  border-radius: 13px;
-  background-image: url("./assets/img/wasteEmpty.png");
+  border-radius: 10px;
+  background-image: url("./assets/img/cards/back.png");
   background-size: 100% 100%;
   position: relative;
   border: 1.5px solid white;
@@ -150,9 +152,13 @@ border: 1.5px solid white;
 
 #menu{
   float: left;
-  bottom: 15%;
-  right: 10%;
+  bottom: 8%;
+  right: 5%;
   position: absolute;
+  opacity: 0.4;
+}
+#menu:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 800px){
@@ -183,13 +189,13 @@ margin: 0 1px;
 }
 
 #talon{
-grid-column: 5 / 6;
+grid-column: 7 / 8;
 grid-row: 1 / 2;
 margin-left: -2px;
 }
 
 #waste{
-grid-column: 6 / 7;
+grid-column: 5 / 6;
 grid-row: span 1;
 margin-left: -2px;
 }
@@ -197,12 +203,7 @@ margin-left: -2px;
 #waste > div{
 grid-row: span 1;
 }
-
 #menu{
-  float: left;
-  bottom: 15%;
-  left: 10%;
-  position: absolute;
-  transform: rotateZ(180deg);
+  right: 6%;
 }
 }

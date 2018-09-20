@@ -13,6 +13,7 @@ import { Deck } from '../deck';
 export class WasteComponent implements OnInit {
   waste = this.deckService.waste;
   talon = this.deckService.talon;
+  loaded: boolean = (this.deckService.waste.size > 3);
 
   constructor(private deckService: DeckService) { }
 

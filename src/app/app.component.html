@@ -1,10 +1,10 @@
 
 <app-overlay [class.activeOverlay]="activeOverlay" 
-[class.inactiveOverlay]="!activeOverlay" (click)="closeOverlay()" ></app-overlay>
+[class.inactiveOverlay]="!activeOverlay"></app-overlay>
 <div id="gameArea">
     <app-foundation id="foundation"></app-foundation>
     <app-maneuver id="maneuver"></app-maneuver>
      <app-talon id="talon"></app-talon>
      <app-waste id="waste"></app-waste>
-     <app-menu id="menu"></app-menu> 
+     <app-menu id="menu" movable></app-menu> 
 </div>   

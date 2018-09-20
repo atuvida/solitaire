@@ -35,13 +35,13 @@ trigger('flip2',[
 
 export let flipAnimation4 = 
 trigger('enter',[
-  transition(':enter', [
+  transition('*=>*', [
     query(':enter', style({opacity: 0}), {optional: true}),
-    query(':enter', stagger('100ms', [
+    query(':enter', stagger('150ms', [
       animate('.5s ease-in', keyframes([
-        style({opacity: 0, transform: 'translateX(-100%)', offset: 0.30}),
-        style({opacity: 1, transform: 'translateY(100%)', offset: 0.60}),
-        style({opacity: 1, transform: 'translateX(0)', offset: 1})
+        style({opacity: 1, transform: 'rotateY(45deg)', offset: 0.30}),
+        style({opacity: 1, transform: 'rotateY(90deg)', offset: 0.60}),
+        style({opacity: 1, transform: 'rotateY(180deg)', offset: 1})
       ]))
     ]), {optional: true})
   ])
