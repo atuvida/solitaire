@@ -1,5 +1,5 @@
 import { DeckTypes } from './../enums/enums';
-import { flipAnimation2, flipAnimation3, flipAnimation4 } from './../animations';
+import { maneuverAnimation } from './../animations';
 import { DeckService } from './../deck.service';
 import { DroppableService } from './../draggable/droppable.service';
 import { Card } from './../card';
@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-maneuver',
   templateUrl: './maneuver.component.html',
   styleUrls: ['./maneuver.component.scss'],
-  animations: [flipAnimation2, flipAnimation3, flipAnimation4]
+  animations: [maneuverAnimation]
 })
 export class ManeuverComponent implements OnInit {
   maneuvers = this.deckService.maneuvers;

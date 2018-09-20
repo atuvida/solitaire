@@ -1,14 +1,14 @@
 import { Card } from './../card';
 import { DeckService } from './../deck.service';
 import { Component, OnInit } from '@angular/core';
-import { flipAnimation } from '../animations';
+import { wasteAnimation } from '../animations';
 import { Deck } from '../deck';
 
 @Component({
   selector: 'app-waste',
   templateUrl: './waste.component.html',
   styleUrls: ['./waste.component.scss'],
-  animations: [ flipAnimation ]
+  animations: [ wasteAnimation ]
 })
 export class WasteComponent implements OnInit {
   waste = this.deckService.waste;

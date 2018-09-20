@@ -10,7 +10,7 @@ export class GameControlService {
 
   initializeGame(){
       this.deckService.generateMainDeck();
-      this.deckService.shuffleDeckCards();
+      // this.deckService.shuffleDeckCards();
       this.deckService.mainDeckCopy.clear();
       this.deckService.copyDeck(this.deckService.mainDeckCopy,this.deckService.mainDeck);
       this.deckService.createGameDecks();
@@ -29,7 +29,7 @@ export class GameControlService {
     this.deckService.clearDecks();     
     this.deckService.generateMainDeck();
     this.deckService.mainDeckCopy.clear();
-    this.deckService.shuffleDeckCards();
+    // this.deckService.shuffleDeckCards();
     this.deckService.copyDeck(this.deckService.mainDeckCopy,this.deckService.mainDeck);
     setTimeout(() => {
       this.deckService.distributeCards();

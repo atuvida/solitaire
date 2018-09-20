@@ -1,4 +1,4 @@
-<div id="menuHead" (click)="toggleMenu()">
+<div id="menuHead" (dblclick)="toggleMenu()">
 </div>
 <div id="{{'menu'+i}}" *ngFor="let item of menu; let i = index; let even = even; let odd = odd" [class.menuVar1]="odd"
   [class.menuVar2]="even" (click)="selected(item)">

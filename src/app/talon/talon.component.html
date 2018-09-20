@@ -1,7 +1,7 @@
 <div [class.loadedDeck]="!talon.isEmpty()"
     [class.emptyTalon]="talon.isEmpty() && !waste.isEmpty()" 
     [class.emptyDeck]="talon.isEmpty() && waste.isEmpty()" 
-    id="talon_0" (click)="addToWaste()">
+    id="talon_0" (click)="addToWaste()" [@talonFlip]="talon.size">
     <ng-template ngFor let-card [ngForOf]="talon.cards" let-i="index" >
         <div class="cards" id="{{card.id}}"
                 *ngIf="!card.flipped; else elseBlock"

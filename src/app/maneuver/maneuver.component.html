@@ -1,5 +1,5 @@
 <div 
-[@enter]="maneuver.size" 
+[@maneuverFlip]="maneuver.size" 
 [class.emptyDeck]="maneuversCleared()"  
 [class.placeHolder]="!maneuversCleared()"  
 *ngFor="let maneuver of maneuvers;" id="{{maneuver.id}}" 

@@ -4,11 +4,13 @@ import { DroppableService } from './../draggable/droppable.service';
 import { DeckService } from './../deck.service';
 import { Component, OnInit } from '@angular/core';
 import { Deck } from '../deck';
+import { foundationAnim } from '../animations';
 
 @Component({
   selector: 'app-foundation',
   templateUrl: './foundation.component.html',
-  styleUrls: ['./foundation.component.scss']
+  styleUrls: ['./foundation.component.scss'],
+  animations: [foundationAnim]
 })
 export class FoundationComponent implements OnInit {
 
