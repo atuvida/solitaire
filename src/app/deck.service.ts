@@ -86,6 +86,7 @@ export class DeckService {
             && !sourceDeck.top.flipped){
               sourceDeck.flipTop();
           }
+          this.utilityService.createLog(sourceDeck, deck, card);    
           return;
         }
       }

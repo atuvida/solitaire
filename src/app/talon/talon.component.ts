@@ -1,3 +1,5 @@
+import { UtilityService } from './../utility.service';
+import { Card } from './../card';
 import { talonFlipAnim } from './../animations';
 import { DeckService } from './../deck.service';
 import { Deck } from './../deck';
@@ -17,12 +19,13 @@ export class TalonComponent implements OnInit {
   waste: Deck = this.deckService.waste;
   maxDraw: number = MODE.Hard;
 
-  constructor(private deckService: DeckService) { }
+  constructor(private deckService: DeckService, private utilityService: UtilityService) { }
 
   ngOnInit() {
   }
 
   addToWaste(): void{
+    let wasteSet: Card[] = [];
 
     if(this.talon.isEmpty() && !this.waste.isEmpty()){
       this.recycleWaste();
@@ -32,17 +35,16 @@ export class TalonComponent implements OnInit {
     if(this.talon.isEmpty() && this.waste.isEmpty()){
       return;
     }
-
-    if(!this.waste.isEmpty()){
-      //reposition waste cards
-    }
   
     for(let i = 0; i < this.maxDraw; i++){
       if(!this.talon.isEmpty()){
         this.talon.top.flip();
+        wasteSet.push(this.talon.top);
         this.waste.addCard(this.talon.getTopCard());
       }
     }
+   
+    this.utilityService.createLog(this.talon, this.waste,undefined,wasteSet); 
   }
 
 

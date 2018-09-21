@@ -1,3 +1,4 @@
+import { UtilityService } from './../utility.service';
 import { DeckTypes } from './../enums/enums';
 import { Card } from './../card';
 import { DroppableService } from './../draggable/droppable.service';
@@ -23,7 +24,8 @@ export class FoundationComponent implements OnInit {
   deck?: Deck;
 
   constructor(private deckService: DeckService,
-    private droppableService: DroppableService) {
+    private droppableService: DroppableService,
+    private utilityService: UtilityService) {
   }
 
   ngOnInit() {
@@ -48,6 +50,7 @@ export class FoundationComponent implements OnInit {
       && this.sourceDeck.type !== DeckTypes.Waste){
         this.sourceDeck.flipTop();
       }
+      this.utilityService.createLog(this.sourceDeck, this.deck, this.draggedCard);
     }
   }
 

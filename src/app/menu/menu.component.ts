@@ -1,6 +1,7 @@
 import { GameControlService } from './../game-control.service';
 import { flipAnimation4 } from './../animations';
 import { Component, OnInit } from '@angular/core';
+import { UtilityService } from '../utility.service';
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +14,7 @@ export class MenuComponent implements OnInit {
   menu: string[] = ['New', 'Restart', 'Hints', 'Logs'];
   toggleActivationCnt: number = 0;
 
-  constructor(private gameControl: GameControlService) { }
+  constructor(private gameControl: GameControlService, private utilityService: UtilityService) { }
 
   ngOnInit() {
   }
@@ -40,7 +41,6 @@ export class MenuComponent implements OnInit {
   clearMenu(){
     if(this.menu.length>0){
       setTimeout(() => {
-        console.log('clearing menu');
         this.menuItems.push(this.menu.pop());
         this.clearMenu();
       }, 50);
@@ -49,7 +49,6 @@ export class MenuComponent implements OnInit {
 
   loadMenu(){
     if(this.menu.length < 4){
-      console.log('loading menu');
       setTimeout(() => {
         this.menu.push(this.menuItems[this.menu.length]);
         this.loadMenu();
@@ -72,9 +71,6 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  
-  selectionMade(option: string){
-  }
   restart(): void{
     this.gameControl.restartGame();
   }

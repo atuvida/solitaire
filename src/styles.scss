@@ -137,6 +137,30 @@ display: grid;
 grid-row: span 1;
 }
 
+
+#gameLogs{
+  grid-row: 5 / span 1;
+  grid-column: 6 /  span 3;
+  padding: 2px;
+  border-radius: 10px;
+  display: grid;
+  text-align: center;
+  overflow: hidden;
+  opacity: 0.5;
+}
+#gameLogs:hover{
+  opacity: 0.8;
+}
+
+#gameLogs > div{
+  display: inline;
+  color: rgb(218, 173, 173);
+  text-align: center;
+  border-top: 0.3px dotted rgb(211, 104, 104);
+  font-size: 50%;
+}
+
+
 .placeHolder{
 width: auto;
 height:auto;

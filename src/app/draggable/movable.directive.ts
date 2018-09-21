@@ -15,8 +15,7 @@ export class MovableDirective extends AppDraggableDirective{
 
   @HostBinding('style.transform') get transform(): SafeStyle{
     return this.sanitizer.bypassSecurityTrustStyle(
-     `translateX(${this.position.x}px) translateY(${this.position.y}px)  
-     translateY(${this.yTranslate})  rotateZ(${this.zRotate})`);
+     `translateX(${this.position.x}px) translateY(${this.position.y}px)`);
   }
 
   @HostBinding('class.movable') movable = true;
@@ -29,7 +28,6 @@ export class MovableDirective extends AppDraggableDirective{
   private startPosition: Position = {x: 0, y: 0};
   private reset: boolean = true;
   private yTranslate: string = '0';
-  private zRotate: string = '0';
 
   @HostListener('dragStart', ['$event']) 
   onDragStart(event: PointerEvent){
@@ -41,16 +39,6 @@ export class MovableDirective extends AppDraggableDirective{
     }
   }
   
-  @HostListener('pointerenter', ['$event']) 
-  onPointerEnter(event: PointerEvent){
-    event.preventDefault();
-    event.stopPropagation();
-      this.yTranslate = '-20%';
-      setTimeout(() => {
-      this.yTranslate = '0';
-      }, 150);
-  }
-
   @HostListener('dragMove', ['$event']) 
   onDragMove(event: PointerEvent){
     event.preventDefault();
@@ -59,14 +47,12 @@ export class MovableDirective extends AppDraggableDirective{
       x: event.clientX - this.startPosition.x,
       y: event.clientY - this.startPosition.y
     }
-    console.log(this.position.x+" && "+this.position.y);
-    console.log(event.clientX+" && "+event.clientY);
-    
-    if(this.movableType == 'menu'){
-      if(event.clientX < event.clientY){
-        this.zRotate = "90deg";
+    if(this.movableType == "menu"){
+      if(event.clientX < 85 || event.clientY < 100 
+        || !(this.position.x < 0 && this.position.y < 0)){
+        this.reset = true;
       }else{
-        this.zRotate = "0";
+        this.reset = false;
       }
     }
   }
@@ -75,9 +61,6 @@ export class MovableDirective extends AppDraggableDirective{
   onDragEnd(event: PointerEvent){
     event.preventDefault();
     event.stopPropagation();
-    if(this.movableType == 'menu'){
-      this.reset = false;
-    }
     if(this.reset){
       this.position = {x: 0, y: 0};
     }

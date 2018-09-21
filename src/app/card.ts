@@ -1,4 +1,4 @@
-import { COLOR, SUIT } from './enums/enums';
+import { COLOR, SUIT, RANK } from './enums/enums';
 
 export class Card{
 
@@ -34,5 +34,9 @@ export class Card{
             return;
         }
         this._flipped = false;
+    }
+
+    toString(): string{
+        return " |"+RANK[this.rank]+" of "+SUIT[this.suit]+"| ";
     }
 }

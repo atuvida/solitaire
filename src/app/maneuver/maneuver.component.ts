@@ -1,3 +1,4 @@
+import { UtilityService } from './../utility.service';
 import { DeckTypes } from './../enums/enums';
 import { maneuverAnimation } from './../animations';
 import { DeckService } from './../deck.service';
@@ -21,7 +22,9 @@ export class ManeuverComponent implements OnInit {
   draggedSet?: Card[];
   deck?: Deck;
 
-  constructor(private deckService: DeckService ,private droppableService: DroppableService) {
+  constructor(private deckService: DeckService ,
+    private droppableService: DroppableService,
+    private utilityService: UtilityService) {
   }
 
   ngOnInit() {  }
@@ -51,6 +54,7 @@ export class ManeuverComponent implements OnInit {
       && this.sourceDeck.type !== DeckTypes.Waste){
         this.sourceDeck.flipTop();
       }
+      this.utilityService.createLog(this.sourceDeck, this.deck, this.draggedCard, this.draggedSet);
     }
   }
 

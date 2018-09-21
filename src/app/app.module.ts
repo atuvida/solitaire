@@ -13,6 +13,7 @@ import { TalonComponent } from './talon/talon.component';
 import { WasteComponent } from './waste/waste.component';
 import { MenuComponent } from './menu/menu.component';
 import { OverlayComponent } from './overlay/overlay.component';
+import { GameLogsComponent } from './game-logs/game-logs.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { OverlayComponent } from './overlay/overlay.component';
     TalonComponent,
     WasteComponent,
     MenuComponent,
-    OverlayComponent
+    OverlayComponent,
+    GameLogsComponent
   ],
   imports: [
     BrowserModule, 

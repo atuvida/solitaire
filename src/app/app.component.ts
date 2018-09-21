@@ -2,6 +2,7 @@ import { UtilityService } from './utility.service';
 import { GameControlService } from './game-control.service';
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { NEXT } from '@angular/core/src/render3/interfaces/view';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnDestroy {
   subscription: Subscription;
 
   constructor(private utilityService: UtilityService, private gameControl: GameControlService){
-    this.subscription = this.utilityService.getStatus().subscribe((status) => {this.activeOverlay = status});
+    this.subscription = this.utilityService.getStatus().subscribe(NEXT => {this.activeOverlay = NEXT});
   }
 
   ngOnInit(){
