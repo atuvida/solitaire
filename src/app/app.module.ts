@@ -14,6 +14,7 @@ import { WasteComponent } from './waste/waste.component';
 import { MenuComponent } from './menu/menu.component';
 import { OverlayComponent } from './overlay/overlay.component';
 import { GameLogsComponent } from './game-logs/game-logs.component';
+import { UndoComponent } from './undo/undo.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { GameLogsComponent } from './game-logs/game-logs.component';
     WasteComponent,
     MenuComponent,
     OverlayComponent,
-    GameLogsComponent
+    GameLogsComponent,
+    UndoComponent
   ],
   imports: [
     BrowserModule, 

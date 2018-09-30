@@ -39,14 +39,14 @@ export class FoundationComponent implements OnInit {
     if(this.isCardValid(this.draggedCard)){
       
       if(this.sourceDeck.type == DeckTypes.Waste){
-        this.waste.getTopCard();
+        this.waste.removeTop();
       }else{
-        this.sourceDeck.getTopCard();
+        this.sourceDeck.removeTop();
       }
       this.deck.addCard(this.draggedCard);
 
       if(!this.sourceDeck.isEmpty() 
-      && !this.sourceDeck.top.flipped
+      && !this.sourceDeck.topCard.flipped
       && this.sourceDeck.type !== DeckTypes.Waste){
         this.sourceDeck.flipTop();
       }
@@ -60,7 +60,7 @@ export class FoundationComponent implements OnInit {
     if(this.draggedSet.length > 0){
       return false;
     }
-    return this.deck.isCardPlayable(draggedCard);
+    return this.deck.canAccept(draggedCard);
   }
 
   autoPlayCard(card: Card, deck: Deck){

@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OverlayComponent implements OnInit {
   textDisplay: string[];
-  options: string[] = ['START'];
+  options = this.utilityService.gameOptions;
 
   constructor(private utilityService: UtilityService, private gameControl: GameControlService) {
     this.textDisplay =  this.utilityService.overlayText;
@@ -26,7 +26,6 @@ export class OverlayComponent implements OnInit {
       this.newGame();
     }
     if(option == 'START'){
-      this.options = ['RESTART', 'NEW GAME']
       this.startGame();
     }
   }
@@ -40,6 +39,7 @@ export class OverlayComponent implements OnInit {
     this.gameControl.newGame();
   }
   startGame(): void{
+    this.utilityService.setGameOptions(['RESTART', 'NEW GAME']);
     this.utilityService.setStatus(false);
   }
   

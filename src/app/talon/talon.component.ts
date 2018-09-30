@@ -38,20 +38,20 @@ export class TalonComponent implements OnInit {
   
     for(let i = 0; i < this.maxDraw; i++){
       if(!this.talon.isEmpty()){
-        this.talon.top.flip();
-        wasteSet.push(this.talon.top);
-        this.waste.addCard(this.talon.getTopCard());
+        this.talon.topCard.flip();
+        wasteSet.push(this.talon.topCard);
+        this.waste.addCard(this.talon.removeTop());
       }
     }
-   
+   this.deckService.suggestNextMove();
     this.utilityService.createLog(this.talon, this.waste,undefined,wasteSet); 
   }
 
 
   recycleWaste(): void{
     while(!this.waste.isEmpty()){
-      this.waste.top.flip();
-      this.talon.addCard(this.waste.getTopCard());
+      this.waste.topCard.flip();
+      this.talon.addCard(this.waste.removeTop());
     }
   }
 }

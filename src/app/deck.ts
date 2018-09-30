@@ -14,15 +14,9 @@ export class Deck {
 
   addCard(card: Card): void {
     this.cards.push(card);
-    console.log('added ' + card.toString() +''+card.flipped+ " to " + this.id);
-    if(this.type == DeckTypes.Foundation){
-      if(this.deckService.foundationsComplete()){
-        this.utilityService.gameWon();
-      }
-    }
   }
 
-  getTopCard(): Card {
+  removeTop(): Card {
     return this.cards.pop();
   }
 
@@ -38,13 +32,12 @@ export class Deck {
     return this._id;
   }
 
-  get top(): Card {
-    let top = this.cards.slice(this.size - 1, this.size);
-    return top[0];
+  get topCard(): Card {
+    return this.cards[this.size-1];
   }
 
   flipTop(): void {
-    this.top.flip();
+    this.topCard.flip();
   }
 
   get type(): number {
@@ -69,12 +62,12 @@ export class Deck {
     return this.cards.indexOf(card);
   }
 
-  isCardPlayable(card: Card): boolean{
+  canAccept(card: Card): boolean{
     if(this.type == DeckTypes.Foundation){
       if(this.isEmpty() && card.Rank == RANK.Ace){
         return true;
       }
-      if(!this.isEmpty() && card.Rank == this.top.Rank+1 && card.Suit == this.top.Suit){
+      if(!this.isEmpty() && card.Rank == this.topCard.Rank+1 && card.Suit == this.topCard.Suit){
         return true;
       }
       return false;
@@ -84,7 +77,7 @@ export class Deck {
       if(this.isEmpty() && card.Rank == RANK.King){
         return true;
       }
-      if(!this.isEmpty() && card.Color !== this.top.Color && card.Rank == this.top.Rank-1){
+      if(!this.isEmpty() && card.Color !== this.topCard.Color && card.Rank == this.topCard.Rank-1){
         return true;
       }
       return false;
@@ -94,8 +87,15 @@ export class Deck {
   clear(){
     this.cards = [];
     while(!this.isEmpty()){
-      this.getTopCard();
+      this.removeTop();
     }
   }
 
+  get nextTop(): Card{
+    return this.cards[this.size-2];
+  }
+
+  get baseCard(): Card{
+    return this.cards[0];
+  }
 }

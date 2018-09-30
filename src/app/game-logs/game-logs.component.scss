@@ -1,0 +1,13 @@
+.active{
+  display: inline;
+  color: rgb(218, 173, 173);
+  text-align: center;
+  opacity: 0.5;
+  user-select: none;
+  text-align: center;
+  font-size: 50%;
+  opacity: 0.3;
+}
+.inactive{
+  display: none;
+}

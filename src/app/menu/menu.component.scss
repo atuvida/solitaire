@@ -9,6 +9,9 @@ position: absolute;
 #menuHead:hover{
   background-color: whitesmoke;
   opacity: 1;
+  #menuHead > div{
+    opacity: 1;
+  }
 }
 
 .menuVar1{
@@ -23,6 +26,7 @@ position: absolute;
   width: 80px;
   user-select: none;
   cursor: pointer;
+  z-index: auto;
 }
 
 .menuVar2{
@@ -37,18 +41,26 @@ position: absolute;
   width: 80px;
   user-select: none;
   cursor: pointer;
+  z-index: auto;
+}
+
+.active{
+  color: black;
+  background-color: white;
+  opacity: 1;
 }
 
 .menuVar1:hover{
   color: black;
   background-color: white;
-  transition: none;
-  
+  opacity: 1;  
+  z-index: 100;
 }
 .menuVar2:hover{
   color: black;
   background-color: white;
-  transition: none;
+  opacity: 1;  
+  z-index: 100;
 }
 #menu0{
   transform: translate(-27px,-60px) rotateZ(80deg);

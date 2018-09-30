@@ -3,14 +3,14 @@
 [class.emptyDeck]="maneuversCleared()"  
 [class.placeHolder]="!maneuversCleared()"  
 *ngFor="let maneuver of maneuvers;" id="{{maneuver.id}}" 
-dropzone [thisDeck]="maneuver" (drop)="drop()" (click)="autoPlayCard(maneuver.top, maneuver);">
+dropzone [thisDeck]="maneuver" (drop)="drop()" (click)="autoPlayCard(maneuver.topCard, maneuver)">
   <ng-template  ngFor let-card [ngForOf]="maneuver.cards" let-i="index">
     <div class="cards" id="{{card.id}}" *ngIf="!card.flipped; else elseBlock" [ngStyle]="{'background-image': 'url(./assets/img/cards/back.png)',
                   'margin-top':i*25+'%'}"></div>
     <ng-template #elseBlock>
       <div class="cards" id="{{card.id}}" 
           [ngStyle]="{'background-image':'url(./assets/img/cards/'+card.Suit+'/'+card.id+'.png)','margin-top':i*25+'%'}" 
-          movable droppable [droppableCard]="card"  [sourceDeck]="maneuver" >
+          movable droppable [droppableCard]="card"  [sourceDeck]="maneuver">
       </div>
     </ng-template>
   </ng-template>

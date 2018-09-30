@@ -1,3 +1,5 @@
+import { DeckService } from './../deck.service';
+import { Subscription } from 'rxjs';
 import { GameControlService } from './../game-control.service';
 import { flipAnimation4 } from './../animations';
 import { Component, OnInit } from '@angular/core';
@@ -11,19 +13,27 @@ import { UtilityService } from '../utility.service';
 })
 export class MenuComponent implements OnInit {
   menuItems: string[] = [];
-  menu: string[] = ['New', 'Restart', 'Hints', 'Logs'];
+  menu: string[] = ['Logs', 'Hints', 'Restart', 'New'];
   toggleActivationCnt: number = 0;
+  logSubscription: Subscription;
+  hintSubscription: Subscription;
+  logActive: boolean;
+  hintsActive: boolean;
 
-  constructor(private gameControl: GameControlService, private utilityService: UtilityService) { }
+  constructor(private gameControl: GameControlService, 
+    private utilityService: UtilityService, private deckService: DeckService) {
+    this.logSubscription = this.utilityService.getLogStatus().subscribe(NEXT => {this.logActive = NEXT});
+    this.hintSubscription = this.utilityService.getHintStatus().subscribe(NEXT => {this.hintsActive = NEXT});
+  }
 
   ngOnInit() {
   }
 
-  toggleMenu(){
+  toggleMenu(event: Event){
+    event.stopPropagation();
+    event.preventDefault();
     this.toggleActivationCnt++;
-    console.log('toggles '+this.toggleActivationCnt+' menu length '+this.menu.length);
     if(this.toggleActivationCnt > 1){
-      console.log('multiple toggles');
       this.menu.length = 0;
     }
     if(this.menu.length == 0){
@@ -56,7 +66,9 @@ export class MenuComponent implements OnInit {
     }
   }
 
-  selected(menuOption: string){
+  selected(event:Event, menuOption: string){
+    event.stopPropagation();
+    event.preventDefault();
     if(menuOption == 'Restart'){
       this.restart();
     }
@@ -64,20 +76,51 @@ export class MenuComponent implements OnInit {
       this.newGame();
     }
     if(menuOption == 'Hints'){
-      this.newGame();
+      this.toggleHints();
     }
     if(menuOption == 'Logs'){
-      this.newGame();
+      this.toggleLogs();
     }
   }
 
   restart(): void{
+    this.clearMenu();
     this.gameControl.restartGame();
+    setTimeout(() => {
+      this.loadMenu();
+    }, 1000);
   }
 
   newGame(): void{
+    this.utilityService.setOverLayText('new');
+    this.utilityService.setStatus(true);
     this.gameControl.newGame();
   }
   
+  
+  toggleLogs(){
+    if(this.logActive){
+      this.utilityService.setLogStatus(false);
+      return;
+    }
+    this.utilityService.setHintStatus(false);
+    this.utilityService.setLogStatus(true);
+  }
+
+  
+  toggleHints(){
+    if(this.hintsActive){
+      this.utilityService.setHintStatus(false);
+      return;
+    }
+    this.utilityService.setLogStatus(false);
+    this.utilityService.setHintStatus(true);
+    this.deckService.suggestNextMove();
+  }
+
+  ngOnDestroy(): void{
+    this.logSubscription.unsubscribe();
+    this.hintSubscription.unsubscribe();
+  }
 
 }

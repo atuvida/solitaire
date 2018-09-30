@@ -26,7 +26,7 @@ export class DroppableDirective{
      this.droppableService.setDroppableCard(this.droppableCard);
      this.droppableService.setDroppableCardSource(this.sourceDeck);
 
-     if(this.droppableCard !== this.sourceDeck.top){
+     if(this.droppableCard !== this.sourceDeck.topCard){
       this.droppableSet = this.sourceDeck.createSetFromIndex(this.sourceDeck.cardIndex(this.droppableCard));
       this.droppableService.createDroppableSet(this.droppableSet);
      }
@@ -46,7 +46,7 @@ export class DroppableDirective{
     event.stopPropagation();
     this.droppableService.onDragEnd(event);
 
-    if(this.droppableSet.length > 0 && this.droppableCard == this.sourceDeck.top){
+    if(this.droppableSet.length > 0 && this.droppableCard == this.sourceDeck.topCard){
       this.sourceDeck.addSet(this.droppableSet);
     }
   }

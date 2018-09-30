@@ -13,108 +13,187 @@ const maneuverCount = 7, foundationCount = 4;
 export class DeckService {
   constructor(private utilityService: UtilityService) { }
 
-  mainDeck: Deck; 
-  mainDeckCopy: Deck = new Deck('deckCopy',DeckTypes.Main);
-  talon: Deck = new Deck('talon_0',DeckTypes.Talon);
-  waste: Deck = new Deck('waste_0',DeckTypes.Waste);
+  mainDeck: Deck;
+  mainDeckCopy: Deck = new Deck('deckCopy', DeckTypes.Main);
+  talon: Deck = new Deck('TALON', DeckTypes.Talon);
+  waste: Deck = new Deck('WASTE', DeckTypes.Waste);
   maneuvers: Deck[] = [];
   foundations: Deck[] = [];
+  hintsCheck: boolean = false;
 
-  generateMainDeck(): void{
+  generateMainDeck(): void {
 
-    let maxRank = Object.keys(RANK).length/2.
-    let maxSuit = Object.keys(SUIT).length/2.
+    let maxRank = Object.keys(RANK).length / 2.
+    let maxSuit = Object.keys(SUIT).length / 2.
 
-    this.mainDeck = new Deck('Main',DeckTypes.Main);
+    this.mainDeck = new Deck('Main', DeckTypes.Main);
 
-    for(let rank = 0; rank < maxRank; rank++){
-      for(let suit = 0; suit < maxSuit; suit++){
-        let card = new Card(suit,rank);
+    for (let rank = 0; rank < maxRank; rank++) {
+      for (let suit = 0; suit < maxSuit; suit++) {
+        let card = new Card(suit, rank);
         this.mainDeck.addCard(card);
       }
     }
   }
 
-  createGameDecks(){
+  createGameDecks() {
     for (let i = 0; i < maneuverCount; i++) {
-      let maneuver = new Deck('maneuver_'+i, DeckTypes.Maneuver);
+      let maneuver = new Deck('MANEUVER' + (i + 1), DeckTypes.Maneuver);
       this.maneuvers.push(maneuver);
     }
 
     for (let i = 0; i < foundationCount; i++) {
-      let foundation = new Deck('foundation_'+i, DeckTypes.Foundation,this, this.utilityService);
+      let foundation = new Deck('FOUNDATION' + (i + 1), DeckTypes.Foundation, this, this.utilityService);
       this.foundations.push(foundation);
     }
   }
 
-  shuffleDeckCards(): void{
+  shuffleDeckCards(): void {
     for (let i = this.mainDeck.size - 1; i > 0; i--) {
-        let j = Math.floor(Math.random() * (i + 1));
-        let temp = this.mainDeck.cards[i];
-        this.mainDeck.cards[i] = this.mainDeck.cards[j];
-        this.mainDeck.cards[j] = temp;
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = this.mainDeck.cards[i];
+      this.mainDeck.cards[i] = this.mainDeck.cards[j];
+      this.mainDeck.cards[j] = temp;
     }
   }
-  
-  distributeCards(){
+
+  distributeCards() {
     for (let i = 0; i < this.maneuvers.length; i++) {
       for (let j = i; j < this.maneuvers.length; j++) {
-        let topCard = this.mainDeck.getTopCard();
+        let topCard = this.mainDeck.removeTop();
         let maneuver = this.maneuvers[j];
         maneuver.addCard(topCard);
       }
       this.maneuvers[i].flipTop();
     }
 
-    while(!this.mainDeck.isEmpty()){
-      let topCard = this.mainDeck.getTopCard();
+    while (!this.mainDeck.isEmpty()) {
+      let topCard = this.mainDeck.removeTop();
       this.talon.addCard(topCard);
     }
-  } 
-  
-  autoPlayCard(card: Card, sourceDeck: Deck): void{
-    let DeckAreas = [this.foundations, this.maneuvers];
+  }
 
-    for(let i = 0; i < DeckAreas.length; i++){
-      for(let j = 0; j < DeckAreas[i].length; j++){
+  autoPlayCard(card: Card, sourceDeck: Deck): void {
+    let DeckAreas = [this.foundations, this.maneuvers];
+    for (let i = 0; i < DeckAreas.length; i++) {
+      for (let j = 0; j < DeckAreas[i].length; j++) {
         let deck = DeckAreas[i][j];
-        if(deck.isCardPlayable(card)){
-          sourceDeck.getTopCard();
-          deck.addCard(card);
-          if(sourceDeck.type == DeckTypes.Maneuver 
-            && !sourceDeck.isEmpty()
-            && !sourceDeck.top.flipped){
-              sourceDeck.flipTop();
+        if (deck.canAccept(card)) {
+          if (this.hintsCheck) {
+            if (sourceDeck.size >= 2
+              && sourceDeck.nextTop.flipped
+              && sourceDeck.type !== DeckTypes.Waste) {
+
+            } else {
+              this.utilityService.createHint(sourceDeck, card, deck);
+            }
+            return;
           }
-          this.utilityService.createLog(sourceDeck, deck, card);    
+          sourceDeck.removeTop();
+          deck.addCard(card);
+          if (sourceDeck.type == DeckTypes.Maneuver
+            && !sourceDeck.isEmpty()
+            && !sourceDeck.topCard.flipped) {
+            sourceDeck.flipTop();
+          }
+          
+          if(this.allCardsFlipped()){
+            this.clearManeuvers();
+            this.utilityService.gameWon();
+            return;
+          }
+          this.suggestNextMove();
+          this.utilityService.createLog(sourceDeck, deck, card);
           return;
         }
       }
     }
   }
+  
+    index = 0;
+   clearManeuvers(){
+    let cardsToClear = 0;
+  
+    for(let i=0; i<this.maneuvers.length; i++){
+      cardsToClear += this.maneuvers[i].size;
+    }
+    
+    if(cardsToClear > 0){
+      let deck = this.maneuvers[this.index];
+      if(this.index < 6){
+        this.index++;
+      }else{
+        this.index = 0;
+      }
+      if(!deck.isEmpty()){
+        this.autoPlayCard(deck.topCard, deck);
+        setTimeout(() => {
+          this.clearManeuvers();
+        }, 300);
+      }else{
+        this.clearManeuvers();
+      }
+    }
+  }
 
-  maneuversCleared(): boolean{
-    for(let i = 0; i < this.maneuvers.length; i++){
-      if(!this.maneuvers[i].isEmpty()){
+  suggestNextMove() {
+    this.utilityService.clearHints();
+    for (let i = 0; i < this.maneuvers.length; i++) {
+      if (!this.maneuvers[i].isEmpty()) {
+        let card = this.maneuvers[i].topCard;
+        this.hintsCheck = true;
+        this.autoPlayCard(card, this.maneuvers[i]);
+      }
+    }
+    if (!this.waste.isEmpty()) {
+      let card = this.waste.topCard;
+      this.hintsCheck = true;
+      this.autoPlayCard(card, this.waste);
+    }
+    if (this.utilityService.gameHints.length == 0) {
+      this.utilityService.noSuggestedMove();
+    }
+
+    this.hintsCheck = false;
+  }
+
+  maneuversCleared(): boolean {
+    for (let i = 0; i < this.maneuvers.length; i++) {
+      if (!this.maneuvers[i].isEmpty()) {
         return false;
       }
     }
     return true;
   }
 
-  foundationsComplete(): boolean{
-    for(let i = 0; i < this.foundations.length; i++){
-      if(this.foundations[i].size < 13){
+  foundationsComplete(): boolean {
+    for (let i = 0; i < this.foundations.length; i++) {
+      if (this.foundations[i].size < 13) {
         return false;
       }
     }
     return true;
   }
 
-  clearDecks(){
-    let foundManDecks = [this.foundations,this.maneuvers];
-    for(let i = 0; i < foundManDecks.length; i++){
-      for(let j = 0; j < foundManDecks[i].length; j++){
+  allCardsFlipped(): boolean {
+    if (!this.talon.isEmpty() || !this.waste.isEmpty()) {
+      return false;
+    }
+
+    for (let i = 0; i < this.maneuvers.length; i++) {
+      if (!this.maneuvers[i].isEmpty()) {
+        if (!this.maneuvers[i].baseCard.flipped) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  clearDecks() {
+    let foundManDecks = [this.foundations, this.maneuvers];
+    for (let i = 0; i < foundManDecks.length; i++) {
+      for (let j = 0; j < foundManDecks[i].length; j++) {
         foundManDecks[i][j].clear();
       }
     }
@@ -123,11 +202,10 @@ export class DeckService {
     this.mainDeck.clear();
   }
 
-  copyDeck(targetDeck: Deck, deckSource: Deck){
+  copyDeck(targetDeck: Deck, deckSource: Deck) {
     let index = 0;
-    console.log('copying '+targetDeck.id+' from '+deckSource.id);
-    while(index < deckSource.size){
-      if(deckSource.cards[index].flipped){
+    while (index < deckSource.size) {
+      if (deckSource.cards[index].flipped) {
         deckSource.cards[index].flip();
       }
       targetDeck.addCard(deckSource.cards[index]);

@@ -17,7 +17,7 @@ export class MovableDirective extends AppDraggableDirective{
     return this.sanitizer.bypassSecurityTrustStyle(
      `translateX(${this.position.x}px) translateY(${this.position.y}px)`);
   }
-
+  
   @HostBinding('class.movable') movable = true;
 
   constructor(private sanitizer: DomSanitizer){
@@ -27,7 +27,6 @@ export class MovableDirective extends AppDraggableDirective{
   private position: Position = {x: 0, y: 0};
   private startPosition: Position = {x: 0, y: 0};
   private reset: boolean = true;
-  private yTranslate: string = '0';
 
   @HostListener('dragStart', ['$event']) 
   onDragStart(event: PointerEvent){
@@ -55,6 +54,7 @@ export class MovableDirective extends AppDraggableDirective{
         this.reset = false;
       }
     }
+    
   }
 
   @HostListener('dragEnd', ['$event']) 

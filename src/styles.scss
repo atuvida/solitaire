@@ -11,8 +11,8 @@ overflow: hidden;
   position: absolute;
   border-radius: 10px;
   background-size: 100% 100%;
-  border: 1.5px solid white;
   transform-style: preserve-3d;
+  border: 1px solid white;
 
   &.dragging{
       border: 1.5px solid red;  
@@ -50,6 +50,7 @@ padding: 5px;
 border-radius: 10px;
 overflow: visible;
 }
+
 
 #foundation{
 padding: 2px;
@@ -90,7 +91,7 @@ cursor: pointer;
   background-image: url("./assets/img/placeholder.png");
   background-size: 100% 100%;
   position: relative;
-  border: 1.5px solid white;
+  border: 1px solid white;
 }
 
 .emptyTalon{
@@ -100,7 +101,7 @@ cursor: pointer;
   background-image: url("./assets/img/wasteReuse.png");
   background-size: 100% 100%;
   position: relative;
-  border: 1.5px solid white;
+  border: 1px solid white;
 }
 
 .loadedWaste{
@@ -110,7 +111,7 @@ cursor: pointer;
   background-image: url("./assets/img/cards/back.png");
   background-size: 100% 100%;
   position: relative;
-  border: 1.5px solid white;
+  border: 1px solid white;
 }
 
 .emptyDeck{
@@ -140,50 +141,54 @@ grid-row: span 1;
 
 #gameLogs{
   grid-row: 5 / span 1;
-  grid-column: 6 /  span 3;
+  grid-column: 5 /  span 4;
   padding: 2px;
   border-radius: 10px;
-  display: grid;
-  text-align: center;
   overflow: hidden;
-  opacity: 0.5;
+  opacity: 0.4;
 }
 #gameLogs:hover{
-  opacity: 0.8;
+  opacity: 1;
 }
-
-#gameLogs > div{
-  display: inline;
-  color: rgb(218, 173, 173);
-  text-align: center;
-  border-top: 0.3px dotted rgb(211, 104, 104);
-  font-size: 50%;
-}
-
 
 .placeHolder{
 width: auto;
 height:auto;
-border-radius: 13px;
+border-radius: 10px;
 background-image: url("./assets/img/placeholder.png");
 background-size: 100% 100%;
 position: relative;
-border: 1.5px solid white;
+border: 1px solid white; 
 
   &.entered-dropzone{
     border: 1.5px solid red;      
   }
 }
 
-#menu{
-  float: left;
-  bottom: 8%;
-  right: 5%;
+#undo{
+  float: right;
   position: absolute;
-  opacity: 0.4;
+  top: 3%;
+  right: 2%;
+  color: white;
+  background-image: url("./assets/img/inactiveUndo.png");
+  width: 40px;
+  height: 40px;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
-#menu:hover {
-  opacity: 1;
+
+#undo:hover{
+  background-image: url("./assets/img/activeUndo.png");
+}
+.inactive{
+  display: none;
+}
+#menu{
+  float: right;
+  bottom: 10%;
+  right: 7%;
+  position: absolute;
 }
 
 @media screen and (max-width: 800px){
@@ -231,4 +236,17 @@ grid-row: span 1;
 #menu{
   right: 6%;
 }
+
+#gameLogs{
+  grid-row: 6 / span 1;
+  grid-column: 1 /  span 4;
+}
+
+#undo{
+  top: 92%;
+  right: 18%;
+  width: 30px;
+  height: 30px;
+}
+
 }
